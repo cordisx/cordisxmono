@@ -1,0 +1,19 @@
+[submodule "vendors/cordisx/cordisx"]
+	path = vendors/cordisx/cordisx
+	url = https://github.com/cordisx/cordisx.git
+[submodule "vendors/cordisx/cordisx-protocol"]
+	path = vendors/cordisx/cordisx-protocol
+	url = https://github.com/cordisx/cordisx-protocol.git
+[submodule "vendors/cordisx/docs"]
+	path = vendors/cordisx/docs
+	url = https://github.com/cordisx/docs.git
+[submodule "vendors/cordisx/cordisx.github.io"]
+	path = vendors/cordisx/cordisx.github.io
+	url = https://github.com/cordisx/cordisx.github.io.git
+[submodule "vendors/cordisx/.github"]
+	path = vendors/cordisx/.github
+	url = https://github.com/cordisx/.github.git
+[submodule "vendors/cordisx/roadmap"]
+	path = vendors/cordisx/roadmap
+	url = https://github.com/cordisx/roadmap.git
+	update = none
