@@ -28,6 +28,7 @@ that repository.
 | `cordisx-protocol` | public | Normative, implementation-independent plugin contracts and conformance material |
 | `docs` | public | Aggregated public documentation and publishing |
 | `cordisx.github.io` | public | Organization homepage |
+| `marketplace` | public | Community plugin catalog entries, generated discovery feed, and contribution CI |
 | `.github` | public | Organization profile and shared GitHub templates |
 | `roadmap` | private | Provisional strategy, decisions, research, and release planning |
 
@@ -73,12 +74,51 @@ composition, not a security sandbox. Do not claim marketplace safety before
 execution isolation, enforced capabilities, source identity, signing, atomic
 activation, and rollback exist.
 
+## Marketplace discovery architecture
+
+The first marketplace stage is a public discovery catalog, not an installer or
+trust authority. Its dependency and ownership chain is:
+
+1. `cordisx-protocol` owns versioned marketplace-entry and marketplace-feed
+   JSON Schemas, canonical identity rules, downgrade behavior, and conformance
+   fixtures.
+2. `marketplace` accepts one plugin JSON entry per pull request, validates every
+   entry and cross-entry identity in CI, and deterministically generates the
+   public aggregate feed.
+3. `cordisx.github.io` owns a public read-only marketplace page that fetches the
+   generated feed rather than duplicating catalog data.
+4. `cordisx` owns manager UI for browsing feeds and configuring multiple feed
+   URLs. Catalog browsing must remain independently usable from plugin runtime
+   activation.
+5. CordisXMono records the compatible protocol, catalog, site, and host commits
+   only after every owning repository commit is pushed and tested together.
+
+A plugin's cross-catalog identity is the tuple of its canonical plugin `source`
+URL and lowercase plugin `id`. The configured marketplace-feed URL records
+catalog provenance but is not plugin identity. When the same identity appears
+in multiple configured feeds, the earliest configured feed wins and later
+copies are reported as duplicates rather than merged field-by-field.
+
+The initial manager stores the ordered feed URL list in the current Chromium
+profile. It may fetch, validate, search, deduplicate, and link to catalog
+entries. It must not claim install, update, signature verification, capability
+enforcement, immutable activation, or rollback until the later authority and
+distribution stage implements those behaviors.
+
+The cross-repository PR boundaries are protocol/schema first, then catalog and
+CI, then the public page, then the CordisX consumer UI, and finally one mono
+coordination commit. Scoped validation covers schema fixtures, deterministic
+feed generation, CI-equivalent catalog checks, page fetch/error rendering,
+multi-source deduplication, manager source persistence, and an isolated live UI
+smoke. Package execution and security-enforcement tests remain out of scope.
+
 ## Delivery order
 
 1. Harden Codex version discovery, adapter fixtures, live read-only probes, and
    safe diagnostics.
 2. Add generation-based reload, a manager UI, manifests, dependency display,
-   compatibility declarations, and state handoff.
+   compatibility declarations, marketplace discovery/configuration, and state
+   handoff.
 3. Define and enforce versioned capabilities, isolate untrusted execution, add
    signed immutable packages, staged activation, and rollback.
 4. Bridge portable task UI to official MCP UI while keeping optional CordisX
@@ -105,15 +145,16 @@ Baseline captured on 2026-08-23:
 - GitHub Pages: homepage and documentation deployments are built and return 200
 - GitHub Actions: enabled for all organization repositories and actions
 
-Pinned revisions at this baseline:
+Pinned revisions in this compatible marketplace coordination branch:
 
 | Repository | Commit |
 | --- | --- |
 | `.github` | `cefd66a2ee87df4807c7c143e2031fea9ffe220f` |
-| `cordisx` | `aeea1960ce4e7d15927c13ed64e60caae56d6945` |
-| `cordisx-protocol` | `969774beb1a3e8056ba3876e8bf4b495fe587cd4` |
-| `cordisx.github.io` | `be30a8955db2bb71776779684eb53443e54e33a1` |
+| `cordisx` | `ef6343b6f082e0a78d302c1facc0f1f43045bd73` |
+| `cordisx-protocol` | `f3e4eaceaa3c7caf27874f8a7ad0f655dd754b33` |
+| `cordisx.github.io` | `f5a874a1bfc5f630e034b00e05b76a985981ff81` |
 | `docs` | `50905086f409b6de6c4753086e40e44204f9afa3` |
+| `marketplace` | `34b6c1bf4a0f5a3010aa6f13e5b7e50ece848b76` |
 | `roadmap` | `d7221dd4646dd56a0e8c88434021f929902af71a` |
 
 The implementation baseline has TypeScript/configuration/DOM lifecycle tests,
