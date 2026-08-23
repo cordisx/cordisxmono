@@ -150,7 +150,7 @@ Pinned revisions in this compatible marketplace coordination branch:
 | Repository | Commit |
 | --- | --- |
 | `.github` | `cefd66a2ee87df4807c7c143e2031fea9ffe220f` |
-| `cordisx` | `ef6343b6f082e0a78d302c1facc0f1f43045bd73` |
+| `cordisx` | `3b536fb6585cbf59c0ab08bf4d7e7cec852359ad` |
 | `cordisx-protocol` | `f3e4eaceaa3c7caf27874f8a7ad0f655dd754b33` |
 | `cordisx.github.io` | `f5a874a1bfc5f630e034b00e05b76a985981ff81` |
 | `docs` | `50905086f409b6de6c4753086e40e44204f9afa3` |
