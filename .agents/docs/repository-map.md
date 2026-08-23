@@ -9,4 +9,5 @@ cross-repository workflow.
 - `cordisx-protocol`: normative plugin contracts and conformance material
 - `docs`: documentation aggregation and publishing
 - `cordisx.github.io`: CordisX homepage
+- `marketplace`: community plugin catalog, generated JSON feed, and contribution CI
 - `.github`: organization profile and shared templates
