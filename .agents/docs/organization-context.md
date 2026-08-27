@@ -29,7 +29,7 @@ that repository.
 | `docs` | public | Aggregated public documentation and publishing |
 | `cordisx.github.io` | public | Organization homepage |
 | `.github` | public | Organization profile and shared GitHub templates |
-| `plugin-imperium` | public | OpenAI Imperium site and the future reasoning-intensity experience plugin |
+| `plugin-codex-ascension` | public | OpenAI Imperium site and the future reasoning-intensity experience plugin |
 | `roadmap` | private | Provisional strategy, decisions, research, and release planning |
 
 Settled implementation decisions move to `cordisx`; settled public contracts

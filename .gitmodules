@@ -17,6 +17,6 @@
 	path = vendors/cordisx/roadmap
 	url = https://github.com/cordisx/roadmap.git
 	update = none
-[submodule "vendors/cordisx/plugin-imperium"]
-	path = vendors/cordisx/plugin-imperium
-	url = https://github.com/cordisx/plugin-imperium.git
+[submodule "vendors/cordisx/plugin-codex-ascension"]
+	path = vendors/cordisx/plugin-codex-ascension
+	url = https://github.com/cordisx/plugin-codex-ascension.git
