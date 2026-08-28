@@ -12,7 +12,8 @@
 
 When the user explicitly asks Codex to act as the responsible manager, lead,
 chief coordinator, or owner for work performed across multiple Codex tasks,
-read `.agents/docs/work-manager.md` completely and use that workflow. Chinese
+read `.agents/docs/work-manager.md` and `.agents/rules/owner-reporting.md`
+completely and use those workflows. Chinese
 requests such as “你来负责”, “替我管理这些工作”, or “做总协调” activate the
 mode when they delegate ongoing coordination, not merely implementation. The
 same applies to “帮我管理这些会话并最终交付”.
