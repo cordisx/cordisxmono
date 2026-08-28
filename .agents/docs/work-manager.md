@@ -309,6 +309,11 @@ Update long-term personal memory only when the user explicitly asks for it.
 
 ## Reporting policy
 
+Follow the authoritative active-owner event protocol in
+`.agents/rules/owner-reporting.md`. Owners push material events to the manager's
+source task; the manager does not discover completion by waiting or depending on
+the user to notice it. A heartbeat is only a quiet missed-report recovery path.
+
 Keep routine coordination quiet. Report when the user can make a decision,
 review a preview, see a newly formal merge, unblock a dependency, or inspect a
 material failure. Do not narrate unchanged waits or repeat accepted findings.
