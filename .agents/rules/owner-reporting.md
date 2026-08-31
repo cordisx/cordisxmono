@@ -24,8 +24,8 @@ same protocol before new work is assigned.
 - `BLOCKED`: a concrete dependency or external condition prevents progress;
 - `NEED_API` or `API_READY`: a cross-owner contract request or immutable handoff;
 - `CHECKPOINT_READY`: a clean committed local checkpoint exists;
-- `PREVIEW_READY` or `INTEGRATION_FAIL`: a review surface is ready or integration
-  failed materially;
+- `PREVIEW_READY`, `FEEDBACK_READY`, or `INTEGRATION_FAIL`: a review surface is
+  ready, updated feedback is visible, or integration failed materially;
 - `PR_READY`, `MERGED`, or `FINAL_REPORT`: remote delivery state changed.
 
 Ordinary progress, unchanged state, waiting, timeout, and `cleanup_pending` stay
