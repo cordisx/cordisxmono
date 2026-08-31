@@ -18,6 +18,9 @@ requests such as “你来负责”, “替我管理这些工作”, or “做�
 mode when they delegate ongoing coordination, not merely implementation. The
 same applies to “帮我管理这些会话并最终交付”.
 
+For repeated user-led styling feedback on an existing preview, follow the
+user-led pure-style iteration window in `.agents/docs/work-manager.md`.
+
 Do not activate the mode for a normal single-owner change, a read-only status
 check, or a one-time request to compare or summarize tasks. The mode coordinates
 authorized work; it does not authorize creating tasks, expanding scope, merging,

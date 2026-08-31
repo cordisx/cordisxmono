@@ -236,9 +236,10 @@ dependency-or-conflict: <none or exact blocker>
 planned-preview: <same URL, replacement URL, or real app>
 ```
 
-After implementation it reports `FEEDBACK_READY` with commit, checks, preview,
-and remaining limitations. The manager verifies the new preview before returning
-the user to the original review location.
+After implementation it normally reports `FEEDBACK_READY` with revision,
+checks, preview, and remaining limitations. The manager verifies the new preview
+before returning the user to the original review location. The pure-style
+iteration window below narrows this report and defers its formal gates.
 
 Route a clarification or defect to the current owner. Reopen the architecture
 checkpoint when feedback changes public contracts, permissions, ownership, or
@@ -246,6 +247,59 @@ material product scope. Record unrelated ideas as `proposed` rather than silentl
 expanding the delivery. Mark the old interpretation `superseded` when the user
 clarifies it. Once the user accepts an item, freeze it as `accepted`; do not
 re-design or repeatedly re-review it without a concrete regression.
+
+### User-led pure-style iteration window
+
+Use this temporary window only when all of the following are true:
+
+- the user is actively reviewing an existing preview and expects repeated,
+  short-turnaround visual refinements;
+- the requested changes are limited to presentation styling, such as spacing,
+  typography, color, geometry, or non-semantic motion; and
+- the work does not change security, permissions, accessibility semantics,
+  interaction or runtime behavior, public protocol, persistent data, migration,
+  release, or another high-risk surface.
+
+While the window is active, the user is the only acceptance authority. For each
+feedback item, the implementation owner makes the narrow styling change,
+refreshes the same preview, fixes any compile or HMR error that prevents the
+change from being visible, and reports that the preview is ready to inspect.
+The manager routes the next feedback immediately and keeps the review at the
+same surface unless replacement is technically necessary.
+
+Preview availability is not an automated acceptance gate. During this window:
+
+- do not add or modify unit tests;
+- do not run automated tests or a separate automated acceptance pass;
+- do not start independent review or treat review, CI, or another gate as a
+  prerequisite for the user's next feedback round; and
+- do not describe a visible preview, implementation self-check, or manager
+  availability check as `verified` or `accepted`.
+
+The owner may perform the minimum direct diagnosis needed to restore a broken
+preview. Compile and HMR errors are implementation visibility defects and must
+be fixed promptly, but they do not expand into a test gate. `FEEDBACK_READY`
+during this window identifies the current working revision and dirty state,
+the unchanged or replacement preview surface, its visible availability, and
+known limitations; automated checks remain explicitly deferred.
+
+Exit the window only when the user explicitly says the current styling is
+final, accepted, or no longer under active review, or when new feedback leaves
+the pure-style scope. On a normal exit, freeze the current implementation. Mark
+it `accepted` only when the user explicitly accepts it; otherwise keep it
+`implemented` and record only its preview visibility evidence. Then perform the
+deferred work once as a consolidated delivery pass: add or update tests, run
+the appropriate automated checks, conduct formal independent verification and
+review, and proceed through PR and merge authorization. If the scope becomes
+high risk, pause the styling shortcut immediately and apply the normal
+architecture, validation, review, and authorization gates before continuing
+that work.
+
+This window is never an exception for security, permissions, accessibility,
+interaction behavior, public contracts, data integrity or migration,
+destructive behavior, native runtime lifecycle, release, publication, or
+deployment. It also does not authorize cross-owner edits, hide a preview
+failure, skip final validation, or infer acceptance from silence.
 
 ## Integration and acceptance
 
