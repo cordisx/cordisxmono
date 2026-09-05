@@ -7,18 +7,21 @@
 - Follow the formal owner-merge and compatible-set requirements in
   [cross-repo-changes.md](cross-repo-changes.md) before updating pointers.
 - Treat repository-specific `AGENTS.md` and `.agents/rules` as authoritative inside each submodule.
+- Follow [formatting and file size](file-size.md): dprint owns formatting,
+  ESLint enforces the source-file limit, and 800 lines prompts a design review.
 
 ## Read by task
 
-| Task | Required guide |
-| --- | --- |
-| Find the owning repository or begin organization work | [Organization context](../docs/organization-context.md) |
-| Synchronize an existing checkout or start an owner branch | [Getting started](../docs/getting-started.md) |
-| Create, transfer, adopt, or audit organization repositories | [Repository onboarding](repository-onboarding.md) |
-| Add, reorganize, or update documentation | [Documentation ownership and layers](documentation.md) |
-| Change a public contract | [Protocol synchronization](protocol-sync.md), then owner rules |
-| Change dependencies or Mono gitlinks | [Cross-repository changes](cross-repo-changes.md) |
-| Coordinate an authorized release | [Release coordination](release-coordination.md) |
+| Task                                                        | Required guide                                                                          |
+| ----------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Find the owning repository or begin organization work       | [Organization context](../docs/organization-context.md)                                 |
+| Synchronize an existing checkout or start an owner branch   | [Getting started](../docs/getting-started.md)                                           |
+| Create, transfer, adopt, or audit organization repositories | [Repository onboarding](repository-onboarding.md)                                       |
+| Add, reorganize, or update documentation                    | [Documentation ownership and layers](documentation.md)                                  |
+| Format, lint, or expand a file                              | [Formatting and file size](file-size.md), [splitting guide](../docs/splitting-files.md) |
+| Change a public contract                                    | [Protocol synchronization](protocol-sync.md), then owner rules                          |
+| Change dependencies or Mono gitlinks                        | [Cross-repository changes](cross-repo-changes.md)                                       |
+| Coordinate an authorized release                            | [Release coordination](release-coordination.md)                                         |
 
 Read the owner repository's instructions before edits. Use these links to load
 the relevant workflow; ordinary tasks do not require the full manager workflow.

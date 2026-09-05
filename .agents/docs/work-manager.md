@@ -37,12 +37,12 @@ authority the user has not granted.
 
 ## Authority model
 
-| Role | Authority |
-| --- | --- |
-| User | Product requirements, priority, visual direction, scope changes, and acceptance |
-| Manager | Decomposition, ownership, dependency routing, handoff verification, preview presentation, feedback routing, and final compatible-set integration |
-| Implementation task | Changes and validation inside its assigned owning repository and file boundary |
-| Integration workspace | Read-only assembly and validation of formal owner merges before the mono pointer is updated |
+| Role                  | Authority                                                                                                                                        |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| User                  | Product requirements, priority, visual direction, scope changes, and acceptance                                                                  |
+| Manager               | Decomposition, ownership, dependency routing, handoff verification, preview presentation, feedback routing, and final compatible-set integration |
+| Implementation task   | Changes and validation inside its assigned owning repository and file boundary                                                                   |
+| Integration workspace | Read-only assembly and validation of formal owner merges before the mono pointer is updated                                                      |
 
 Implementation tasks are peers. They may clarify technical details directly,
 but private agreement between tasks is not an authoritative dependency handoff,

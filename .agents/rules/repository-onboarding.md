@@ -32,30 +32,30 @@ visibility, or grant organization permissions as a side effect of registration.
 ## Completion checklist
 
 - [ ] The official remote exists; canonical `org/repo`, clone URL, visibility,
-  accountable maintenance role, and purpose are recorded in the existing table
-  and `.gitmodules`. Confirm transfers and default-branch names remotely.
+      accountable maintenance role, and purpose are recorded in the existing table
+      and `.gitmodules`. Confirm transfers and default-branch names remotely.
 - [ ] The owner has pushed and formally merged the selected commit. Fetch its
-  official default branch, verify the full commit is reachable from that branch,
-  and record full commit and tree SHAs plus owner PR/evidence. A feature head,
-  local-only commit, or branch-tracking submodule does not satisfy this check.
+      official default branch, verify the full commit is reachable from that branch,
+      and record full commit and tree SHAs plus owner PR/evidence. A feature head,
+      local-only commit, or branch-tracking submodule does not satisfy this check.
 - [ ] The matching mode `160000` gitlink is staged at `vendors/org/repo`.
-  Existing gitlinks stay unchanged unless separately assigned for integration.
+      Existing gitlinks stay unchanged unless separately assigned for integration.
 - [ ] Every private mount has `update = none`. Public initialization needs no
-  private token; private initialization uses only authorized per-command opt-in.
-  Keep private content and credentials out of public records. If even identity
-  metadata is restricted, record a sanitized blocker with the manager rather
-  than publishing it or pretending admission is complete.
+      private token; private initialization uses only authorized per-command opt-in.
+      Keep private content and credentials out of public records. If even identity
+      metadata is restricted, record a sanitized blocker with the manager rather
+      than publishing it or pretending admission is complete.
 - [ ] Ownership and onboarding entry points link to the authoritative sources.
-  Run the offline consistency check, its regression tests, diff/link review, and
-  a fresh anonymous recursive public clone/init at the candidate revision.
-  Record exact results, including any failure and private mount skip.
+      Run the offline consistency check, its regression tests, diff/link review, and
+      a fresh anonymous recursive public clone/init at the candidate revision.
+      Record exact results, including any failure and private mount skip.
 - [ ] Reconcile official organization metadata against the inventory, then
-  deduplicate relevant task/worktree canonical origins. Record omitted,
-  excluded, and uncertain candidates with reasons and follow-up ownership.
+      deduplicate relevant task/worktree canonical origins. Record omitted,
+      excluded, and uncertain candidates with reasons and follow-up ownership.
 - [ ] Report owner and Mono PRs, full SHAs/trees, added mounts, validation scope,
-  dirty state, dependencies, exceptions and remaining decisions to the manager.
-  Admission is complete only after the authorized Mono merge and remote
-  readback. A ready PR is a reviewable checkpoint, not a completed merge.
+      dirty state, dependencies, exceptions and remaining decisions to the manager.
+      Admission is complete only after the authorized Mono merge and remote
+      readback. A ready PR is a reviewable checkpoint, not a completed merge.
 
 Initial admission can record a formally merged product whose dependencies differ
 from Mono's existing pins. Report that fact explicitly; never silently advance

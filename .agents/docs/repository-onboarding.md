@@ -116,13 +116,13 @@ sanitized blockers belong in public records when disclosure is not authorized.
 
 ## Examples
 
-| Observation | Required result |
-| --- | --- |
-| Public plugin has a merged main; owner, declaration and exact gitlink agree | Offline check passes; anonymous clone and formal SHA evidence still required |
-| Private roadmap is registered with `update = none` and has no local checkout | Offline check passes; default public clone skips it |
-| Plugin exists only in a separate task or `/tmp` clone | Admission incomplete; register the same canonical repository in Mono |
-| Ownership row or `.gitmodules` entry has no gitlink | Offline check fails; add the reviewed formal pin |
-| A regular directory/blob replaces a gitlink, or a URL/path points to another repo | Offline check fails; correct the registration |
-| Private registration omits `update = none`, or duplicate rows/paths appear | Offline check fails; preserve skip policy and one canonical mount |
-| Two worktrees resolve to the same canonical origin | One repository, not two new mounts |
-| Product dependencies differ from existing Mono pins | Report the gap for integration; registration does not authorize an upgrade |
+| Observation                                                                       | Required result                                                              |
+| --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Public plugin has a merged main; owner, declaration and exact gitlink agree       | Offline check passes; anonymous clone and formal SHA evidence still required |
+| Private roadmap is registered with `update = none` and has no local checkout      | Offline check passes; default public clone skips it                          |
+| Plugin exists only in a separate task or `/tmp` clone                             | Admission incomplete; register the same canonical repository in Mono         |
+| Ownership row or `.gitmodules` entry has no gitlink                               | Offline check fails; add the reviewed formal pin                             |
+| A regular directory/blob replaces a gitlink, or a URL/path points to another repo | Offline check fails; correct the registration                                |
+| Private registration omits `update = none`, or duplicate rows/paths appear        | Offline check fails; preserve skip policy and one canonical mount            |
+| Two worktrees resolve to the same canonical origin                                | One repository, not two new mounts                                           |
+| Product dependencies differ from existing Mono pins                               | Report the gap for integration; registration does not authorize an upgrade   |

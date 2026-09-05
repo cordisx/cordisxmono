@@ -1,0 +1,13 @@
+{
+  "indentWidth": 2,
+  "newLineKind": "lf",
+  "markdown": {
+    "textWrap": "maintain"
+  },
+  "includes": ["**/*.{md,json,jsonc}"],
+  "excludes": ["vendors/**"],
+  "plugins": [
+    "npm:@dprint/json@0.23.0",
+    "npm:@dprint/markdown@0.23.3"
+  ]
+}

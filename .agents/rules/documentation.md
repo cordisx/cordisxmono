@@ -1,6 +1,8 @@
 # Documentation ownership and layers
 
 Use this rule when adding, changing, moving, or retiring project documentation.
+Documentation also follows the [file-size limits](file-size.md); use the
+[splitting guide](../docs/splitting-files.md) when a topic outgrows one page.
 The [organization ownership table](../docs/organization-context.md#repository-ownership)
 identifies the owning repository. Each owner indexes its own document layout.
 
@@ -20,12 +22,12 @@ identifies the owning repository. Each owner indexes its own document layout.
 
 ## Separate purpose and status
 
-| Kind | Content and scope |
-| --- | --- |
-| Repository entry | `README.md` serves readers; `AGENTS.md` routes work to the applicable owner rules and guides. Keep both short enough to find the next step. |
-| Maintenance rule | `.agents/rules` contains durable instructions, with a trigger and scope. Temporary task assignments do not belong here. |
-| Public guide or reference | The owner's `.agents/docs` explains usage, architecture, or versioned semantics. Identify the audience and authoritative topic links. |
-| Maintainer runbook | Keep repository release or recovery operations in an indexed maintainer guide, separate from normative public contracts. |
+| Kind                          | Content and scope                                                                                                                                    |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Repository entry              | `README.md` serves readers; `AGENTS.md` routes work to the applicable owner rules and guides. Keep both short enough to find the next step.          |
+| Maintenance rule              | `.agents/rules` contains durable instructions, with a trigger and scope. Temporary task assignments do not belong here.                              |
+| Public guide or reference     | The owner's `.agents/docs` explains usage, architecture, or versioned semantics. Identify the audience and authoritative topic links.                |
+| Maintainer runbook            | Keep repository release or recovery operations in an indexed maintainer guide, separate from normative public contracts.                             |
 | Decision or historical record | Label accepted decisions, dated observations, and superseded plans explicitly. Record the applicable version, date, and replacement link when known. |
 
 Protocol maturity, implementation, validation, merge, and user acceptance are
