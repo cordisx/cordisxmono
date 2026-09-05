@@ -5,6 +5,8 @@ is the authoritative map from subject to repository. Use
 [`.gitmodules`](../../.gitmodules) for registered mount paths and URLs, and Git
 for the current pinned revisions.
 
+- To register a new repository or reconcile omissions, use
+  [repository onboarding](repository-onboarding.md).
 - To synchronize the workspace or create an owner branch, use
   [getting started](getting-started.md).
 - To locate or reorganize documentation, use

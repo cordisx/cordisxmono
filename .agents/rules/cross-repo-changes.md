@@ -2,6 +2,9 @@
 
 Use this rule for dependent changes and every formal Mono pointer update,
 including single-owner tasks that do not activate responsible manager mode.
+Initial repository registration also follows
+[repository onboarding](repository-onboarding.md): validate admission separately
+from product compatibility, and do not refresh existing pointers incidentally.
 
 1. Identify owners, dependencies, and the required compatible-set checks before
    changing dependent code. Develop in the owning repositories.

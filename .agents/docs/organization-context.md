@@ -19,20 +19,34 @@ See [getting started](getting-started.md) for synchronization and owner branches
 
 ## Repository ownership
 
-This is the organization ownership table. Other entry points link here.
-`.gitmodules` owns mount paths and clone URLs; Git gitlinks own exact revisions.
+This is the single repository inventory and ownership table. Other entry points
+link here. Repository identifiers are canonical GitHub `org/repo` names;
+`.gitmodules` owns mount paths and credential-free canonical clone URLs; Git
+gitlinks own exact revisions. Accountable owners below are maintenance roles,
+not GitHub permission assignments. Each delivery names its individual/task owner.
+The Mono repository is the root and is never mounted inside itself.
 
-| Repository | Visibility | Authority |
-| --- | --- | --- |
-| `cordisxmono` | public | Organization context, cross-repository rules, and compatible revision records |
-| `cordisx` | public | Host implementation, launcher, Codex adapter, product guides, and implementation architecture |
-| `cordisx-protocol` | public | Normative, implementation-independent plugin contracts and conformance material |
-| `docs` | public | Documentation navigation, presentation, and publication; its README distinguishes the current portal from planned aggregation |
-| `cordisx.github.io` | public | Homepage, public-site design system, and showcase capture workflows |
-| `.github` | public | Organization profile and shared community configuration |
-| `plugin-codex-ascension` | public | Reasoning-intensity presentation plugin and OpenAI Imperium petition site |
-| `plugin-chatroom` | public | Chatroom pages, room interactions, and plugin-owned avatar assets |
-| `roadmap` | private | Provisional strategy, decisions, research, and release planning |
+| Repository | Visibility | Accountable owner | Authority |
+| --- | --- | --- | --- |
+| `cordisx/cordisxmono` | public | Mono maintainers | Organization context, repository admission, cross-repository rules, and revision records |
+| `cordisx/cordisx` | public | Host maintainers | Host implementation, launcher, Codex adapter, product guides, and implementation architecture |
+| `cordisx/cordisx-protocol` | public | Protocol maintainers | Normative, implementation-independent plugin contracts and conformance material |
+| `cordisx/docs` | public | Documentation portal maintainers | Documentation navigation, presentation, and publication; its README distinguishes the current portal from planned aggregation |
+| `cordisx/cordisx.github.io` | public | Homepage maintainers | Homepage, public-site design system, and showcase capture workflows |
+| `cordisx/.github` | public | Organization maintainers | Organization profile and shared community configuration |
+| `cordisx/plugin-codex-ascension` | public | Ascension plugin maintainers | Reasoning-intensity presentation plugin and OpenAI Imperium petition site |
+| `cordisx/plugin-chatroom` | public | Chatroom plugin maintainers | Chatroom pages, room interactions, and plugin-owned avatar assets |
+| `cordisx/plugin-agent-trace` | public | Agent Trace plugin maintainers | Read-only Agent Trace plugin |
+| `cordisx/marketplace` | public | Marketplace maintainers | Community plugin catalog and validated discovery feed |
+| `cordisx/roadmap` | private | Organization planning maintainers | Provisional strategy, decisions, research, and release planning |
+
+New, transferred, or adopted repositories follow
+[repository onboarding](../rules/repository-onboarding.md) in the same delivery.
+Initial registration establishes management coverage; its handoff separately
+records dependency gaps and compatible-set validation. Registration alone does
+not prove that all pinned products work together or have user acceptance.
+See the [2026-09-05 inventory audit](history/repository-admission-2026-09-05.md)
+for the dated reconciliation; it is not another maintained inventory.
 
 Promote settled implementation decisions to Host, settled public contracts to
 Protocol, and publishable guidance to the relevant product owner. Keep a link to

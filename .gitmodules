@@ -23,3 +23,9 @@
 [submodule "vendors/cordisx/plugin-chatroom"]
 	path = vendors/cordisx/plugin-chatroom
 	url = https://github.com/cordisx/plugin-chatroom.git
+[submodule "vendors/cordisx/plugin-agent-trace"]
+	path = vendors/cordisx/plugin-agent-trace
+	url = https://github.com/cordisx/plugin-agent-trace.git
+[submodule "vendors/cordisx/marketplace"]
+	path = vendors/cordisx/marketplace
+	url = https://github.com/cordisx/marketplace.git

@@ -11,6 +11,10 @@ The private `roadmap` submodule is skipped by default. Read the root `AGENTS.md`
 and use the [ownership table](organization-context.md#repository-ownership) to
 find the repository that owns your work.
 
+Creating, transferring, or adopting a repository also requires
+[Mono onboarding](repository-onboarding.md) in the same delivery. The ownership
+table, `.gitmodules`, and gitlinks must agree before it is complete.
+
 ## Synchronize the committed compatible set
 
 Inspect changes in the Mono checkout and initialized submodules first:
