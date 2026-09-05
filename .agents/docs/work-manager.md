@@ -51,7 +51,7 @@ scope change, or acceptance decision. The manager maintains the visible ledger.
 ## Manager ledger
 
 Maintain a compact ledger with source, owner, dependency, state, and acceptance
-criteria. Use only these delivery states:
+criteria. Use these delivery labels for summaries:
 
 - `proposed`
 - `unimplemented`
@@ -64,6 +64,12 @@ criteria. Use only these delivery states:
 
 Do not collapse local implementation, tests, formal merge, live verification,
 and user acceptance into one “done” state.
+
+The labels are not a single irreversible pipeline. Alongside the summary, keep
+the implementation revision, merge SHA or pending status, each validation scope
+and evidence, user acceptance, and any blocker as separate fields. For example,
+`formally-merged` with real-App verification pending does not imply `verified`
+or `accepted`; accepting a preview does not complete integration.
 
 The ledger must contain:
 
@@ -127,6 +133,7 @@ acceptance: <executable criteria>
 blocked-files: <files the requester will not modify>
 ```
 
+Follow the common [cross-repository rules](../rules/cross-repo-changes.md).
 The owner delivers code through an immutable formal merge, not copied files,
 a shared dirty directory, or a feature-head dependency:
 
@@ -143,13 +150,18 @@ compatibility: <minimum versions and breaking notes>
 validation: <conformance and CI evidence>
 ```
 
-The consumer fetches formal main, rebases or starts a new branch from it, and
-acknowledges the exact baseline:
+The consumer fetches and rebases or starts a branch from its own repository's
+formal main. It separately verifies the provider's formal merge and consumes it
+through the normal dependency mechanism. A provider SHA is not a consumer branch
+base. Acknowledge both revisions:
 
 ```text
 HANDOFF_CONSUMED
 consumer: <task>
-baseline: <merge SHA>
+consumer-repository: <repository>
+consumer-base: <consumer main SHA>
+provider-repository: <repository>
+provider-merge-sha: <formal dependency SHA>
 integration-commit: <consumer commit, when available>
 result: <checks performed>
 remaining: <live or downstream verification>
@@ -287,10 +299,14 @@ Exit the window only when the user explicitly says the current styling is
 final, accepted, or no longer under active review, or when new feedback leaves
 the pure-style scope. On a normal exit, freeze the current implementation. Mark
 it `accepted` only when the user explicitly accepts it; otherwise keep it
-`implemented` and record only its preview visibility evidence. Then perform the
-deferred work once as a consolidated delivery pass: add or update tests, run
-the appropriate automated checks, conduct formal independent verification and
-review, and proceed through PR and merge authorization. If the scope becomes
+`implemented` and record only its preview visibility evidence. Then complete the
+applicable deferred checks once as a consolidated delivery pass. Add or update
+tests when changed behavior or regression risk warrants them; a spacing-only
+edit does not by itself require a new unit test. Complete independent
+verification and review where the owning repository requires them and the
+existing authorization and tools permit them; identify unavailable or skipped
+checks explicitly. Proceed with PR and merge steps within the granted authority,
+without requesting the same authorization again. If the scope becomes
 high risk, pause the styling shortcut immediately and apply the normal
 architecture, validation, review, and authorization gates before continuing
 that work.
@@ -363,10 +379,11 @@ Update long-term personal memory only when the user explicitly asks for it.
 
 ## Reporting policy
 
-Follow the authoritative active-owner event protocol in
-`.agents/rules/owner-reporting.md`. Owners push material events to the manager's
-source task; the manager does not discover completion by waiting or depending on
-the user to notice it. A heartbeat is only a quiet missed-report recovery path.
+Follow the authoritative [active-owner event protocol](../rules/owner-reporting.md).
+Owners push material events to the manager's source task. Bounded event waits
+and evidence checks may supplement those reports; repeated polling must not
+replace owner reporting or depend on the user to notice completion. A heartbeat
+is only a quiet missed-report recovery path.
 
 Keep routine coordination quiet. Report when the user can make a decision,
 review a preview, see a newly formal merge, unblock a dependency, or inspect a
@@ -380,5 +397,7 @@ At each report, distinguish:
 - accepted;
 - blocked or proposed.
 
-Remain responsible until the user accepts the required result, the designated
-integration is complete, or the user explicitly changes or ends the assignment.
+Remain responsible until both the required user acceptance and the designated
+integration are complete, or until the user explicitly changes or ends the
+assignment. Record a non-applicable acceptance or integration stage explicitly;
+acceptance of an intermediate preview does not end outstanding delivery work.

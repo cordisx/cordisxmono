@@ -1,137 +1,73 @@
 # CordisX Organization Context
 
-This repository is the single working context for the `cordisx` GitHub
-organization. Open Codex tasks at the CordisXMono root and make changes in the
-submodule that owns the material. CordisXMono coordinates compatible revisions;
-it does not own product code or duplicate submodule documentation.
+CordisXMono coordinates independently versioned CordisX repositories. Open
+organization work at this checkout, make changes in the owning repository, and
+record compatible revisions through exact submodule commits. Product code and
+product documentation remain with their owners.
 
 ## Workspace model
 
-- Local namespace: `~/codes/cordisx/cordisxmono`
-- Codex project root: the CordisXMono checkout only
-- Repository mounts: `vendors/cordisx/<repo>`
-- Private planning: `vendors/cordisx/roadmap`, registered with `update = none`
-- Public clones: initialize public submodules recursively and skip `roadmap`
-- Authorized maintainer workspaces: opt into `roadmap` with the command in
-  `getting-started.md`
+- The saved project checkout and Codex worktrees are valid Mono roots; discover
+  the current path from Git rather than assuming one user's home directory.
+- Repository mounts are `vendors/cordisx/<repo>`.
+- Public clones initialize public submodules; private `roadmap` uses
+  `update = none` and requires an authorized opt-in.
+- Read the root `AGENTS.md`, then the owning repository's instructions before
+  editing. Its nested rules govern that repository.
 
-Read the root `AGENTS.md` first. Before changing a mounted repository, read its
-own `AGENTS.md` and `.agents/rules`. Nested instructions are authoritative for
-that repository.
+See [getting started](getting-started.md) for synchronization and owner branches.
 
 ## Repository ownership
 
+This is the organization ownership table. Other entry points link here.
+`.gitmodules` owns mount paths and clone URLs; Git gitlinks own exact revisions.
+
 | Repository | Visibility | Authority |
 | --- | --- | --- |
-| `cordisxmono` | public | Organization context, pinned revisions, and cross-repository coordination |
-| `cordisx` | public | Host implementation, launcher, Codex adapter, tests, and public architecture |
+| `cordisxmono` | public | Organization context, cross-repository rules, and compatible revision records |
+| `cordisx` | public | Host implementation, launcher, Codex adapter, product guides, and implementation architecture |
 | `cordisx-protocol` | public | Normative, implementation-independent plugin contracts and conformance material |
-| `docs` | public | Aggregated public documentation and publishing |
-| `cordisx.github.io` | public | Organization homepage |
-| `.github` | public | Organization profile and shared GitHub templates |
-| `plugin-codex-ascension` | public | OpenAI Imperium site and the future reasoning-intensity experience plugin |
+| `docs` | public | Documentation navigation, presentation, and publication; its README distinguishes the current portal from planned aggregation |
+| `cordisx.github.io` | public | Homepage, public-site design system, and showcase capture workflows |
+| `.github` | public | Organization profile and shared community configuration |
+| `plugin-codex-ascension` | public | Reasoning-intensity presentation plugin and OpenAI Imperium petition site |
 | `roadmap` | private | Provisional strategy, decisions, research, and release planning |
 
-Settled implementation decisions move to `cordisx`; settled public contracts
-move to `cordisx-protocol`; publishable documentation moves to the relevant
-public repository. Do not leave an approved fact only in `roadmap`.
+Promote settled implementation decisions to Host, settled public contracts to
+Protocol, and publishable guidance to the relevant product owner. Keep a link to
+the promoted fact instead of maintaining parallel copies in roadmap or Mono.
 
-## Product and architecture baseline
+## Product and architecture references
 
-CordisX is an unofficial, opt-in local UI plugin host for Codex Desktop. It
-combines a CodexPlusPlus-style launcher and loopback CDP injection with
-DeepSeek Harness-style Cordis fibers, services, effects, and named UI slots.
-It does not modify the installed Codex application, replace the agent loop, or
-relay authentication.
+CordisX is an unofficial, opt-in local extension host for Codex Desktop. Its
+organization boundary keeps public contracts separate from Host implementation
+and plugin product behavior. The Host owns native integration and the UI
+surfaces exposed by its public contracts; plugins consume those contracts.
 
-The plugin API intentionally follows DSH rather than inventing a parallel
-facade:
+Read the owning sources for current APIs, launch behavior, capabilities,
+security limits, and implementation status:
 
-- plugins declare `inject = ['slots']`;
-- hosts declare a slot with `ctx.slots.inject(name, setup)`;
-- plugins contribute with `ctx.slots.register(options, component)`;
-- the caller's Cordis fiber owns cleanup and removal;
-- there is no `ctx.cordisx.contribute()` API.
+- [Host documentation](../../vendors/cordisx/cordisx/.agents/docs/README.md)
+  and [architecture](../../vendors/cordisx/cordisx/.agents/docs/architecture.md).
+- [Protocol specifications](../../vendors/cordisx/cordisx-protocol/.agents/docs/README.md)
+  and [Protocol maintenance rules](../../vendors/cordisx/cordisx-protocol/.agents/rules/README.md).
+- [Documentation portal](../../vendors/cordisx/docs/README.md) and
+  [public-site design system](../../vendors/cordisx/cordisx.github.io/.agents/docs/site-design-system.md).
 
-The first five semantic slots are `header.actions`, `composer.before`,
-`composer.after`, `sidebar.footer`, and `shell.overlay`. The host adapter owns
-Codex DOM selectors; plugins target semantic names. Version 0.1 supports list
-entry identity, order, priority shadowing, declaration injection, fiber-owned
-disposal, and remounting after anchor replacement. Keyed, chain, children,
-store, locale, and business-face injection remain deferred.
+These local links follow the checked-out revisions. A checked-out feature branch
+or dirty tree is not a formally integrated baseline. Do not infer current
+capabilities from the [2026-08-23 historical baseline](history/organization-baseline-2026-08-23.md).
 
-The default launcher starts a second Codex instance with a stable project-scoped
-Chromium profile and an ephemeral loopback CDP port. Codex processes, AppServer
-stdio/lifecycle, Chromium data, CDP, UI storage, and window restoration are
-isolated. `HOME` and `CODEX_HOME` remain shared so authentication, conversations,
-projects, and model configuration remain available. `--system` is the escape
-hatch to the user's normal profile. `--online-devtools` explicitly grants the
-official Chrome DevTools frontend full debugging authority over the isolated
-renderer.
+## Cross-repository work
 
-Plugins currently execute as trusted renderer code. Cordis provides lifecycle
-composition, not a security sandbox. Do not claim marketplace safety before
-execution isolation, enforced capabilities, source identity, signing, atomic
-activation, and rollback exist.
+Follow [cross-repository changes](../rules/cross-repo-changes.md) for formal owner
+handoffs, compatible-set verification, and final Mono gitlinks. Read
+[protocol synchronization](../rules/protocol-sync.md) for public contract work
+and [documentation ownership and layers](../rules/documentation.md) for prose.
 
-## Delivery order
+At the start of organization work, inspect dirty state, fetch relevant remotes,
+and distinguish Mono's pinned set from owner main tips. Report implementation,
+validation scope, merge, publication, and user acceptance separately.
 
-1. Harden Codex version discovery, adapter fixtures, live read-only probes, and
-   safe diagnostics.
-2. Add generation-based reload, a manager UI, manifests, dependency display,
-   compatibility declarations, and state handoff.
-3. Define and enforce versioned capabilities, isolate untrusted execution, add
-   signed immutable packages, staged activation, and rollback.
-4. Bridge portable task UI to official MCP UI while keeping optional CordisX
-   shell augmentation independently usable.
-
-Externally observable contract changes land in `cordisx-protocol` before or
-alongside compatible `cordisx` changes. Push each owning repository first, test
-the compatible set, and update CordisXMono pointers last.
-
-## Verified organization baseline
-
-Baseline captured on 2026-08-23:
-
-- GitHub organization: `CordisX`
-- Description: `A Cordis-powered UI plugin ecosystem for Codex Desktop.`
-- Homepage: `https://cordisx.github.io/`
-- Default repository permission: none
-- Member repository creation: disabled
-- `core` team: maintain access to every organization repository
-- `security` team: triage access to every organization repository
-- Merge policy: squash and rebase are enabled, merge commits are disabled, and
-  merged branches are deleted
-- Public `main` branches reject force pushes and deletion
-- GitHub Pages: homepage and documentation deployments are built and return 200
-- GitHub Actions: enabled for all organization repositories and actions
-
-Pinned revisions at this baseline:
-
-| Repository | Commit |
-| --- | --- |
-| `.github` | `cefd66a2ee87df4807c7c143e2031fea9ffe220f` |
-| `cordisx` | `aeea1960ce4e7d15927c13ed64e60caae56d6945` |
-| `cordisx-protocol` | `969774beb1a3e8056ba3876e8bf4b495fe587cd4` |
-| `cordisx.github.io` | `be30a8955db2bb71776779684eb53443e54e33a1` |
-| `docs` | `50905086f409b6de6c4753086e40e44204f9afa3` |
-| `roadmap` | `d7221dd4646dd56a0e8c88434021f929902af71a` |
-
-The implementation baseline has TypeScript/configuration/DOM lifecycle tests,
-an isolated-launch path, real renderer injection evidence, and five DSH-aligned
-slots. Treat that as a feasibility baseline, not as proof of compatibility with
-future Codex releases.
-
-## Task handoff checklist
-
-At the beginning of every organization-level Codex task:
-
-1. Read this file, the root rules, and the owning repository's nested rules.
-2. Fetch the CordisXMono remote and compare every relevant submodule pointer
-   before calling the checkout current.
-3. State whether findings are implemented, live-verified, experimental,
-   blocked, or planned.
-4. Record architecture and dependency order before cross-repository
-   implementation.
-5. Validate in the owning repository, push it, then update and verify the mono
-   pointer in a separate commit.
+Responsible manager mode applies only to an explicit ongoing coordination
+assignment; its trigger is in the [workspace rules](../rules/README.md).

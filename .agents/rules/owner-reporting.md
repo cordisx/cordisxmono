@@ -2,8 +2,9 @@
 
 Use this protocol whenever a responsible manager coordinates two or more Codex
 tasks. Task owners actively report material events to the manager's source task.
-The manager must not rely on waiting, manual polling, or the user noticing that
-a task has finished.
+Active reports are the primary source of task state. The manager may use bounded
+event waits and evidence checks, but must not replace owner reporting with
+repeated polling or depend on the user noticing that a task has finished.
 
 ## Dispatch requirements
 
@@ -12,8 +13,8 @@ Every owner delegation must include:
 - the manager source task ID;
 - the event types below;
 - the required report fields;
-- an instruction to continue after reporting unless a decision or real blocker
-  requires a pause.
+- an instruction to continue remaining authorized work after reporting unless
+  a decision or real blocker requires a pause, or the delegated scope is complete.
 
 The owner acknowledges the protocol at task start. Reused tasks receive the
 same protocol before new work is assigned.
@@ -30,6 +31,10 @@ same protocol before new work is assigned.
 
 Ordinary progress, unchanged state, waiting, timeout, and `cleanup_pending` stay
 silent.
+
+After `FINAL_REPORT`, end the owner turn when its delegated scope is complete
+and no authorized work remains. Report any handoff obligations before ending;
+do not invent further work to satisfy the continuation instruction.
 
 ## Required report payload
 

@@ -1,12 +1,17 @@
-# Repository Map
+# Repository map
 
-Use this repository as the single CordisX organization context root. See
-`organization-context.md` for the verified baseline, ownership boundaries, and
-cross-repository workflow.
+The [organization ownership table](organization-context.md#repository-ownership)
+is the authoritative map from subject to repository. Use
+[`.gitmodules`](../../.gitmodules) for registered mount paths and URLs, and Git
+for the current pinned revisions.
 
-- `roadmap`: private product planning and decisions; registered but skipped by default
-- `cordisx`: CordisX implementation and product documentation
-- `cordisx-protocol`: normative plugin contracts and conformance material
-- `docs`: documentation aggregation and publishing
-- `cordisx.github.io`: CordisX homepage
-- `.github`: organization profile and shared templates
+- To synchronize the workspace or create an owner branch, use
+  [getting started](getting-started.md).
+- To locate or reorganize documentation, use
+  [documentation ownership and layers](../rules/documentation.md).
+- To deliver dependent changes, use
+  [cross-repository changes](../rules/cross-repo-changes.md).
+
+The ownership table includes registered public plugins as well as Host,
+Protocol, documentation, website, organization configuration, and private
+planning. Keep new mounts and that table in sync.
