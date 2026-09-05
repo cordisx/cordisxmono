@@ -139,6 +139,10 @@ they must not replace this historical observation or assume it is current.
 
 ## File-size policy coordination
 
+This subsection records the proposal before the concurrent formal admission in
+PR #76. Its first-admission concern for Chatroom is superseded for this PR by
+the actual-base classification at the end of this record.
+
 The concurrent file-size guard owner (`01a07013-07b3-7323-95b8-3ef72a3a1b3c`)
 reported that its proposed recursive check treats a new mount as having an empty
 base. A repository's pre-existing large files therefore need an explicit
@@ -243,5 +247,18 @@ dependency and the other recorded dependency differences remain unresolved by
 this registration. No product compatibility inference follows from this match.
 The first anonymous clone result above covers the original immutable checkpoint;
 the final PR handoff separately reports verification of the rebased candidate.
-The proposed first-admission file-size policy must also account for Chatroom's
-earlier admission by PR #76; this history does not grant an exception for it.
+The manager confirmed that file-size checks must use the real new base and
+candidate. Chatroom's previous and next gitlinks are identical, so its existing
+files use the normal previous-pin/no-growth rule. This PR does not need a special
+Chatroom first-admission baseline. The earlier migration proposal remains
+historical and unapproved; no such exception was implemented. Only Trace and
+Marketplace are new mounts: Trace's generated lockfile needs the guard owner's
+existing exact-path classification, and Marketplace has no oversized text file.
+
+Rebased candidate `f906655288946afcc51126a9ac73998765dbb1bd` passed a second
+fresh anonymous recursive clone and repeated init, both exit 0. All nine public
+pins matched, roadmap remained uninitialized, the clone was clean, all 55 local
+Markdown targets resolved, and the committed validator passed. The exact-head
+[registration CI](https://github.com/cordisx/cordisxmono/actions/runs/33954918548/job/101276370060)
+also passed. The final follow-up changes only this historical evidence page;
+its PR handoff records the final SHA and current checks.
