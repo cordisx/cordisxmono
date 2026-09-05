@@ -220,3 +220,28 @@ record establishes registration/clone verification only: Mono merge remains a
 manager decision, the file-size admission policy remains proposed, and product
 compatibility, real-App verification, publication and user acceptance are not
 claimed. No service was started or operated by this task.
+
+## Formal-main advancement before PR completion
+
+The final pre-PR fetch observed a concurrent formal Mono merge:
+`d298381063a6a4ce09631da9ac2e2eb7c8fe517f`,
+[PR #76](https://github.com/cordisx/cordisxmono/pull/76). That merge independently
+registered Chatroom at the same `fe5f4a2cad5a846f3054837c91d92292a086d4a9` and
+advanced Host to `88b98996d70c0ceccaeb423e5329df9abf49d785`. This is an upstream
+integration decision, not a pointer change made by the admission owner.
+
+The `.gitmodules` and ownership-table overlap was reported to the source manager
+before resolution. The admission branch was rebased onto this formal main,
+preserving both upstream pins and the newly added Chatroom authority text
+(pages, room interactions, and plugin-owned avatar assets). Therefore the final
+PR adds only **Agent Trace and Marketplace** gitlinks relative to its base; all
+eight now-existing gitlinks are unchanged. The original audit of three omissions
+above remains a dated fact; Chatroom admission is already supplied by PR #76.
+
+Chatroom's Host dependency now matches the rebased Mono Host pin. Its Protocol
+dependency and the other recorded dependency differences remain unresolved by
+this registration. No product compatibility inference follows from this match.
+The first anonymous clone result above covers the original immutable checkpoint;
+the final PR handoff separately reports verification of the rebased candidate.
+The proposed first-admission file-size policy must also account for Chatroom's
+earlier admission by PR #76; this history does not grant an exception for it.
