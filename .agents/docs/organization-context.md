@@ -31,6 +31,7 @@ This is the organization ownership table. Other entry points link here.
 | `cordisx.github.io` | public | Homepage, public-site design system, and showcase capture workflows |
 | `.github` | public | Organization profile and shared community configuration |
 | `plugin-codex-ascension` | public | Reasoning-intensity presentation plugin and OpenAI Imperium petition site |
+| `plugin-chatroom` | public | Chatroom pages, room interactions, and plugin-owned avatar assets |
 | `roadmap` | private | Provisional strategy, decisions, research, and release planning |
 
 Promote settled implementation decisions to Host, settled public contracts to

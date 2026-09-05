@@ -20,3 +20,6 @@
 [submodule "vendors/cordisx/plugin-codex-ascension"]
 	path = vendors/cordisx/plugin-codex-ascension
 	url = https://github.com/cordisx/plugin-codex-ascension.git
+[submodule "vendors/cordisx/plugin-chatroom"]
+	path = vendors/cordisx/plugin-chatroom
+	url = https://github.com/cordisx/plugin-chatroom.git
