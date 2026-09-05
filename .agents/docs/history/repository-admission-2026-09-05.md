@@ -186,3 +186,37 @@ The generated lockfiles require separate reviewed exact-path classification.
 The alternative requires product owners to split at least five source modules
 and three test suites, validate the affected controllers/Room/simulation paths,
 and formally merge before admission. That product cleanup is outside this task.
+
+## Registration validation
+
+The implementation checkpoint is Mono commit
+`6f48e44e29107b90c85b07170cd6230c49224374`, tree
+`c2f13c184bd13180c74e338bf22b9c2262e118c8`. It was pushed to
+`codex/repository-onboarding` after another canonical fetch/rebase confirmed the
+unchanged formal baseline. This section is a subsequent evidence-only record;
+it does not change the checked inventory, declarations, checker or gitlinks.
+
+- 29 real temporary-Git regression tests passed. The staged-index and committed
+  snapshot validators both passed: ten mounts plus the Mono root. Tests cover
+  positive public/private uninitialized cases and negative duplicate, orphan,
+  missing, noncanonical, non-gitlink, private-default and mixed-snapshot cases.
+- Independent read-only review found no blocking implementation issue and
+  verified all seven existing gitlinks were unchanged. `git diff --check` passed.
+- A fresh clone from the official public branch with `--recurse-submodules`
+  completed with exit 0 at the exact checkpoint SHA. System/global Git config,
+  credential helpers, authorization extra headers, tokens and prompting were
+  disabled; the runner had no `.netrc` credentials. All nine public mounts were
+  checked out at their exact pins. Private roadmap printed `Skipping submodule`
+  and remained uninitialized, with no `.git` under its mount.
+- A second `submodule update --init --recursive` under the same anonymous
+  environment completed with exit 0 and again skipped roadmap. The clone was
+  clean; all ten submodule status entries matched the pins. The committed
+  validator passed there, and all 55 relative Markdown link targets across
+  Mono-owned tracked documents existed, including the original product links
+  after public submodule initialization.
+
+The PR handoff carries the final candidate SHA, remote CI and review URL. This
+record establishes registration/clone verification only: Mono merge remains a
+manager decision, the file-size admission policy remains proposed, and product
+compatibility, real-App verification, publication and user acceptance are not
+claimed. No service was started or operated by this task.
