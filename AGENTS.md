@@ -13,4 +13,7 @@ activate it.
   CordisXMono. Follow `.agents/rules/documentation.md` for documentation changes.
 - Push submodule commits before updating pointers here.
 - Keep submodules pinned to exact commits.
+- New, transferred, or adopted organization repositories must complete
+  [.agents/rules/repository-onboarding.md](.agents/rules/repository-onboarding.md)
+  in the same delivery; a standalone checkout is not completed Mono admission.
 - Do not duplicate content from mounted repositories.

@@ -1,0 +1,22 @@
+name: Repository governance
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  registration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          persist-credentials: false
+      - name: Test registration validator
+        run: python3 -m unittest discover -s scripts -p 'test_check_repositories.py'
+      - name: Check committed repository registration
+        run: python3 scripts/check-repositories.py --revision HEAD
