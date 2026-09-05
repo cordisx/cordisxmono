@@ -27,19 +27,19 @@ initialized; only already-public registration metadata is recorded here.
 
 ## Reconciliation
 
-| Canonical repository | Visibility | Baseline result / exact existing pin |
-| --- | --- | --- |
-| `cordisx/cordisxmono` | public | Root; no self-mount |
-| `cordisx/.github` | public | Registered: `831f614b3968f30967f93e6fe2eb07723d9850d4` |
-| `cordisx/cordisx` | public | Registered: `7611d876c153093a83ba0378a2bb344638c2ba6f` |
-| `cordisx/cordisx-protocol` | public | Registered: `17fa1f3e52ec5d7e65d4bf01bff66f2066c72157` |
-| `cordisx/cordisx.github.io` | public | Registered: `8121894f5cf364ce2b215785ed4a39851c58f86e` |
-| `cordisx/docs` | public | Registered: `8cc9983248617dda7f075db7d6045a47f300b215` |
-| `cordisx/plugin-codex-ascension` | public | Registered: `324993c4c6abd7795a8255c2b498e7ce5fda16d5` |
-| `cordisx/roadmap` | private | Registered: `d7221dd4646dd56a0e8c88434021f929902af71a`; `update = none` |
-| `cordisx/plugin-chatroom` | public | Missing from all three registration inputs; added in this admission |
-| `cordisx/plugin-agent-trace` | public | Missing from all three registration inputs; added in this admission |
-| `cordisx/marketplace` | public | Missing from all three registration inputs; added in this admission |
+| Canonical repository             | Visibility | Baseline result / exact existing pin                                    |
+| -------------------------------- | ---------- | ----------------------------------------------------------------------- |
+| `cordisx/cordisxmono`            | public     | Root; no self-mount                                                     |
+| `cordisx/.github`                | public     | Registered: `831f614b3968f30967f93e6fe2eb07723d9850d4`                  |
+| `cordisx/cordisx`                | public     | Registered: `7611d876c153093a83ba0378a2bb344638c2ba6f`                  |
+| `cordisx/cordisx-protocol`       | public     | Registered: `17fa1f3e52ec5d7e65d4bf01bff66f2066c72157`                  |
+| `cordisx/cordisx.github.io`      | public     | Registered: `8121894f5cf364ce2b215785ed4a39851c58f86e`                  |
+| `cordisx/docs`                   | public     | Registered: `8cc9983248617dda7f075db7d6045a47f300b215`                  |
+| `cordisx/plugin-codex-ascension` | public     | Registered: `324993c4c6abd7795a8255c2b498e7ce5fda16d5`                  |
+| `cordisx/roadmap`                | private    | Registered: `d7221dd4646dd56a0e8c88434021f929902af71a`; `update = none` |
+| `cordisx/plugin-chatroom`        | public     | Missing from all three registration inputs; added in this admission     |
+| `cordisx/plugin-agent-trace`     | public     | Missing from all three registration inputs; added in this admission     |
+| `cordisx/marketplace`            | public     | Missing from all three registration inputs; added in this admission     |
 
 Existing seven gitlinks are preserved. The three added repositories are public
 organization-owned products/catalogs with purpose confirmed by their official
@@ -57,11 +57,11 @@ Each selected SHA is also the merge commit of a formal owner PR:
 [Agent Trace #7](https://github.com/cordisx/plugin-agent-trace/pull/7), and
 [Marketplace #3](https://github.com/cordisx/marketplace/pull/3).
 
-| Repository / canonical clone URL | Full formal main commit | Full tree |
-| --- | --- | --- |
-| `plugin-chatroom` — `https://github.com/cordisx/plugin-chatroom.git` | `fe5f4a2cad5a846f3054837c91d92292a086d4a9` | `8b216f0cef3f5fd09d079bf159fa95a302c0656c` |
+| Repository / canonical clone URL                                           | Full formal main commit                    | Full tree                                  |
+| -------------------------------------------------------------------------- | ------------------------------------------ | ------------------------------------------ |
+| `plugin-chatroom` — `https://github.com/cordisx/plugin-chatroom.git`       | `fe5f4a2cad5a846f3054837c91d92292a086d4a9` | `8b216f0cef3f5fd09d079bf159fa95a302c0656c` |
 | `plugin-agent-trace` — `https://github.com/cordisx/plugin-agent-trace.git` | `c238b868d6f7f37cb2ebf883e2a67c066628f079` | `7e18858f25e291a5ca7a5a53d02cb1f8c6484760` |
-| `marketplace` — `https://github.com/cordisx/marketplace.git` | `8454e9c7325e03a38dc42cb14ad6d77de0956b49` | `c2c8bb6822e4ceb7a9353b5aa990670bc38ec496` |
+| `marketplace` — `https://github.com/cordisx/marketplace.git`               | `8454e9c7325e03a38dc42cb14ad6d77de0956b49` | `c2c8bb6822e4ceb7a9353b5aa990670bc38ec496` |
 
 The first Chatroom API observation was `da85341ac78e5322cfc4b3ffce15912114751496`
 / tree `dd44f38d6f332678583d57482548986771fbef73`. Main advanced during this
@@ -74,11 +74,11 @@ These facts come from the exact admitted public commits, not the latest mutable
 owner checkout. They require a separate compatible-set decision; no existing
 Host or Protocol gitlink was advanced to conceal the differences.
 
-| Owner source | Declared dependency |
-| --- | --- |
-| Chatroom `package.json` | Host Git commit `88b98996d70c0ceccaeb423e5329df9abf49d785`; Protocol Git commit `6fa9bbbad0501114bece820d574d5e79a4cb3cdb` |
-| Agent Trace `package.json` | npm `cordisx@0.1.0-beta.1`; Protocol Git commit `c96c290697f9e802a68c6d3bb094fd27d8d00d1e` |
-| Marketplace `protocol.lock.json` | Protocol Git commit `c81c4fa4819d6e8e2fe976f063f00b213abacc14` |
+| Owner source                     | Declared dependency                                                                                                        |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Chatroom `package.json`          | Host Git commit `88b98996d70c0ceccaeb423e5329df9abf49d785`; Protocol Git commit `6fa9bbbad0501114bece820d574d5e79a4cb3cdb` |
+| Agent Trace `package.json`       | npm `cordisx@0.1.0-beta.1`; Protocol Git commit `c96c290697f9e802a68c6d3bb094fd27d8d00d1e`                                 |
+| Marketplace `protocol.lock.json` | Protocol Git commit `c81c4fa4819d6e8e2fe976f063f00b213abacc14`                                                             |
 
 These differ from Mono's existing Host/Protocol pins above. Builds, contract
 conformance, real-App integration, and user acceptance of this combined set are
@@ -159,18 +159,18 @@ last line. Chatroom had 108 text blobs, Trace 30, Marketplace 22. There were no
 over-limit documentation files. Lockfile labels below describe generation, not
 an approved exception.
 
-| Repository | Path | Lines | Exact blob SHA | Kind |
-| --- | --- | ---: | --- | --- |
-| Chatroom | `package-lock.json` | 4930 | `a1d18848a3a900286616f7de117f39abaf5ec76c` | Generated lockfile; no admission exemption |
-| Chatroom | `src/agent-loop-controller.ts` | 1631 | `4538d9b3495ec201bcd0c6942519a8f1452104b9` | Source |
-| Chatroom | `src/agent-session-controller.ts` | 1661 | `af209573039fa80d5fd4ca3c96a0e83bf03289b3` | Source |
-| Chatroom | `src/conversation-source.ts` | 1656 | `11eedf1144656fd877c56e5eec35dd20ac372267` | Source |
-| Chatroom | `src/playground-room-simulation-bridge.ts` | 1589 | `7babb75d1bb69b7a8dc05424662f7afd9190fa3b` | Source |
-| Chatroom | `src/room.ts` | 1782 | `19131333989b4a7172f4a4e8221dee7447a55f77` | Source |
-| Chatroom | `test/agent-loop-controller.mjs` | 1369 | `97256bb9a020cdb59e17945387d8af301868c406` | Test |
-| Chatroom | `test/agent-session-controller.mjs` | 2159 | `84ba6d00b455fa0e53b760e3da73539ef47d2a51` | Test |
-| Chatroom | `test/room-engagement.mjs` | 1038 | `42bf7be3de9d583a6a7d5f4d6a3722285d2a8bcb` | Test |
-| Agent Trace | `package-lock.json` | 5071 | `2ee5675c871dfc9bcf6d3257e16571716639aae6` | Generated lockfile; no admission exemption |
+| Repository  | Path                                       | Lines | Exact blob SHA                             | Kind                                       |
+| ----------- | ------------------------------------------ | ----: | ------------------------------------------ | ------------------------------------------ |
+| Chatroom    | `package-lock.json`                        |  4930 | `a1d18848a3a900286616f7de117f39abaf5ec76c` | Generated lockfile; no admission exemption |
+| Chatroom    | `src/agent-loop-controller.ts`             |  1631 | `4538d9b3495ec201bcd0c6942519a8f1452104b9` | Source                                     |
+| Chatroom    | `src/agent-session-controller.ts`          |  1661 | `af209573039fa80d5fd4ca3c96a0e83bf03289b3` | Source                                     |
+| Chatroom    | `src/conversation-source.ts`               |  1656 | `11eedf1144656fd877c56e5eec35dd20ac372267` | Source                                     |
+| Chatroom    | `src/playground-room-simulation-bridge.ts` |  1589 | `7babb75d1bb69b7a8dc05424662f7afd9190fa3b` | Source                                     |
+| Chatroom    | `src/room.ts`                              |  1782 | `19131333989b4a7172f4a4e8221dee7447a55f77` | Source                                     |
+| Chatroom    | `test/agent-loop-controller.mjs`           |  1369 | `97256bb9a020cdb59e17945387d8af301868c406` | Test                                       |
+| Chatroom    | `test/agent-session-controller.mjs`        |  2159 | `84ba6d00b455fa0e53b760e3da73539ef47d2a51` | Test                                       |
+| Chatroom    | `test/room-engagement.mjs`                 |  1038 | `42bf7be3de9d583a6a7d5f4d6a3722285d2a8bcb` | Test                                       |
+| Agent Trace | `package-lock.json`                        |  5071 | `2ee5675c871dfc9bcf6d3257e16571716639aae6` | Generated lockfile; no admission exemption |
 
 Marketplace has no text blob over 1000 lines. For Chatroom, eight handwritten
 source/test files remain historical debt; the two generated lockfiles need the

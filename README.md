@@ -9,5 +9,7 @@ revisions; each repository owns its product code and documentation.
 - [Register a repository or audit missing mounts](.agents/docs/repository-onboarding.md).
 - [Find the applicable rules](.agents/rules/README.md).
 - [Read the documentation ownership and layers](.agents/rules/documentation.md).
+- [Keep files within the size limits](.agents/rules/file-size.md) and
+  [split by responsibility](.agents/docs/splitting-files.md).
 
 Agents start with [AGENTS.md](AGENTS.md).
