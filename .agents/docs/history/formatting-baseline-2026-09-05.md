@@ -28,6 +28,21 @@ still required GitHub CODEOWNER approval. It is not included in this pointer
 update: Marketplace remains at `8454e9c7325e03a38dc42cb14ad6d77de0956b49`.
 Private roadmap remains unchanged with `update = none` and was not initialized.
 
+### Marketplace completion
+
+Later in the same delivery, the repository owner explicitly confirmed the
+decision to merge Marketplace #4 despite the normal author-review restriction.
+With the reviewed head and both CI checks unchanged, the authorized maintainer
+used GitHub's administrator merge path. The formal merge is
+`ee10200cf43def2f9e0de191e8da7fcfab19ab15`, tree
+`2b89b48613b21135632f2b591bb4f634a503e6e3`, identical to the reviewed candidate.
+This follow-up updates only Marketplace's gitlink to that formal revision.
+All nine public owner formatting baselines are now available for integration.
+
+The merge was an explicit administrator decision, not an approval from another
+CODEOWNER. No branch-protection or permission setting was changed by the task;
+this decision does not grant authority for other administrative overrides.
+
 ## Verification and preservation
 
 - Host passed all 225 test files / 1278 tests, release metadata, package allowlist
