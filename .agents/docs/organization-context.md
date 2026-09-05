@@ -72,6 +72,8 @@ security limits, and implementation status:
 These local links follow the checked-out revisions. A checked-out feature branch
 or dirty tree is not a formally integrated baseline. Do not infer current
 capabilities from the [2026-08-23 historical baseline](history/organization-baseline-2026-08-23.md).
+The [2026-09-05 formatting checkpoint](history/formatting-baseline-2026-09-05.md)
+records its formal owner revisions, verification scope and pending rollout work.
 
 ## Cross-repository work
 
