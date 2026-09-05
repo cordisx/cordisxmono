@@ -4,9 +4,23 @@
 - Do not place product code in CordisXMono.
 - Keep every submodule pinned to an exact commit.
 - Keep private repositories registered with `update = none` so public clones skip them by default.
-- Push changes to the owning repository before updating its pointer.
-- Coordinate protocol and implementation updates explicitly.
+- Follow the formal owner-merge and compatible-set requirements in
+  [cross-repo-changes.md](cross-repo-changes.md) before updating pointers.
 - Treat repository-specific `AGENTS.md` and `.agents/rules` as authoritative inside each submodule.
+
+## Read by task
+
+| Task | Required guide |
+| --- | --- |
+| Find the owning repository or begin organization work | [Organization context](../docs/organization-context.md) |
+| Synchronize an existing checkout or start an owner branch | [Getting started](../docs/getting-started.md) |
+| Add, reorganize, or update documentation | [Documentation ownership and layers](documentation.md) |
+| Change a public contract | [Protocol synchronization](protocol-sync.md), then owner rules |
+| Change dependencies or Mono gitlinks | [Cross-repository changes](cross-repo-changes.md) |
+| Coordinate an authorized release | [Release coordination](release-coordination.md) |
+
+Read the owner repository's instructions before edits. Use these links to load
+the relevant workflow; ordinary tasks do not require the full manager workflow.
 
 ## Responsible work manager mode
 
