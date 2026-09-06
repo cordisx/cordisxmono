@@ -330,6 +330,14 @@ export async function auditQuality(input) {
     } catch (error) {
       errors.push(`dprint inspection failed: ${error.stderr?.toString().trim() || error.message}`)
     }
+    if (report.eslint && report.dprint) {
+      const linted = new Set(report.eslint.covered.map(entry => entry.path))
+      for (const file of report.dprint.covered.filter(file => codeExtension.test(file))) {
+        if (!linted.has(file)) {
+          errors.push(`${file}: formatted source has no ESLint configuration; update the owner language scope/parser`)
+        }
+      }
+    }
   } catch (error) {
     errors.push(error.message)
   }
