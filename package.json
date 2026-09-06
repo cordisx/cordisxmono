@@ -1,0 +1,42 @@
+{
+  "name": "@cordisx/eslint-config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared CordisX source-quality and formatter configuration",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cordisx/cordisxmono.git"
+  },
+  "exports": {
+    ".": "./tooling/quality/eslint-policy.mjs",
+    "./lint-staged": "./tooling/quality/lint-staged.mjs",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "tooling/quality/eslint-policy.mjs",
+    "tooling/quality/lint-staged.mjs",
+    "tooling/quality/dprint/*.json"
+  ],
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "peerDependencies": {
+    "eslint": "^9.39.4 || ^10.0.0"
+  },
+  "scripts": {
+    "format": "dprint fmt",
+    "format:check": "dprint check",
+    "lint": "eslint .",
+    "check:quality": "node --test tests/quality-*.test.mjs",
+    "check:registration": "python3 -B scripts/check-repositories.py --revision HEAD"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "8.69.0",
+    "dprint": "0.57.1",
+    "eslint": "9.39.4",
+    "jsonc-parser": "3.3.1",
+    "lint-staged": "16.2.7",
+    "typescript": "5.9.3"
+  }
+}

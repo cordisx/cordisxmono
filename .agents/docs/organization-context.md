@@ -25,20 +25,26 @@ link here. Repository identifiers are canonical GitHub `org/repo` names;
 gitlinks own exact revisions. Accountable owners below are maintenance roles,
 not GitHub permission assignments. Each delivery names its individual/task owner.
 The Mono repository is the root and is never mounted inside itself.
+The quality profile selects shared tooling: `javascript`, `typescript`, `next`,
+`format-only`, or `private`. Private rows must use `private`; public rows cannot.
+The offline [registration validator](../../scripts/check-repositories.py) emits
+this same table and its Git pins with `--json`; pass `--revision` for a committed
+CI snapshot. Private rows appear only in `skipped`, without reading or initializing
+their checkouts. An index snapshot reports no commit revision for Mono itself.
 
-| Repository                       | Visibility | Accountable owner                 | Authority                                                                                                                     |
-| -------------------------------- | ---------- | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `cordisx/cordisxmono`            | public     | Mono maintainers                  | Organization context, repository admission, cross-repository rules, and revision records                                      |
-| `cordisx/cordisx`                | public     | Host maintainers                  | Host implementation, launcher, Codex adapter, product guides, and implementation architecture                                 |
-| `cordisx/cordisx-protocol`       | public     | Protocol maintainers              | Normative, implementation-independent plugin contracts and conformance material                                               |
-| `cordisx/docs`                   | public     | Documentation portal maintainers  | Documentation navigation, presentation, and publication; its README distinguishes the current portal from planned aggregation |
-| `cordisx/cordisx.github.io`      | public     | Homepage maintainers              | Homepage, public-site design system, and showcase capture workflows                                                           |
-| `cordisx/.github`                | public     | Organization maintainers          | Organization profile and shared community configuration                                                                       |
-| `cordisx/plugin-codex-ascension` | public     | Ascension plugin maintainers      | Reasoning-intensity presentation plugin and OpenAI Imperium petition site                                                     |
-| `cordisx/plugin-chatroom`        | public     | Chatroom plugin maintainers       | Chatroom pages, room interactions, and plugin-owned avatar assets                                                             |
-| `cordisx/plugin-agent-trace`     | public     | Agent Trace plugin maintainers    | Read-only Agent Trace plugin                                                                                                  |
-| `cordisx/marketplace`            | public     | Marketplace maintainers           | Community plugin catalog and validated discovery feed                                                                         |
-| `cordisx/roadmap`                | private    | Organization planning maintainers | Provisional strategy, decisions, research, and release planning                                                               |
+| Repository                       | Visibility | Accountable owner                 | Authority                                                                                                                     | Quality profile |
+| -------------------------------- | ---------- | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| `cordisx/cordisxmono`            | public     | Mono maintainers                  | Organization context, repository admission, cross-repository rules, and revision records                                      | javascript      |
+| `cordisx/cordisx`                | public     | Host maintainers                  | Host implementation, launcher, Codex adapter, product guides, and implementation architecture                                 | typescript      |
+| `cordisx/cordisx-protocol`       | public     | Protocol maintainers              | Normative, implementation-independent plugin contracts and conformance material                                               | typescript      |
+| `cordisx/docs`                   | public     | Documentation portal maintainers  | Documentation navigation, presentation, and publication; its README distinguishes the current portal from planned aggregation | javascript      |
+| `cordisx/cordisx.github.io`      | public     | Homepage maintainers              | Homepage, public-site design system, and showcase capture workflows                                                           | javascript      |
+| `cordisx/.github`                | public     | Organization maintainers          | Organization profile and shared community configuration                                                                       | format-only     |
+| `cordisx/plugin-codex-ascension` | public     | Ascension plugin maintainers      | Reasoning-intensity presentation plugin and OpenAI Imperium petition site                                                     | next            |
+| `cordisx/plugin-chatroom`        | public     | Chatroom plugin maintainers       | Chatroom pages, room interactions, and plugin-owned avatar assets                                                             | typescript      |
+| `cordisx/plugin-agent-trace`     | public     | Agent Trace plugin maintainers    | Read-only Agent Trace plugin                                                                                                  | typescript      |
+| `cordisx/marketplace`            | public     | Marketplace maintainers           | Community plugin catalog and validated discovery feed                                                                         | javascript      |
+| `cordisx/roadmap`                | private    | Organization planning maintainers | Provisional strategy, decisions, research, and release planning                                                               | private         |
 
 New, transferred, or adopted repositories follow
 [repository onboarding](../rules/repository-onboarding.md) in the same delivery.

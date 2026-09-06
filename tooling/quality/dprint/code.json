@@ -1,0 +1,14 @@
+{
+  "extends": "./common.json",
+  "typescript": {
+    "quoteStyle": "preferSingle",
+    "semiColons": "asi",
+    "module.sortImportDeclarations": "maintain",
+    "module.sortExportDeclarations": "maintain"
+  },
+  "plugins": [
+    "npm:@dprint/typescript@0.96.1",
+    "npm:@dprint/json@0.23.0",
+    "npm:@dprint/markdown@0.23.3"
+  ]
+}

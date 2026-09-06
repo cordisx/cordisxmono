@@ -1,0 +1,7 @@
+{
+  "extends": "./common.json",
+  "plugins": [
+    "npm:@dprint/json@0.23.0",
+    "npm:@dprint/markdown@0.23.3"
+  ]
+}

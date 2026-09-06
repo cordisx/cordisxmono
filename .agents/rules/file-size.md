@@ -3,9 +3,10 @@
 Apply this rule before adding or expanding source, tests, configuration, or
 documentation. Keep the tools' responsibilities separate:
 
-The initial normalization checkpoint enables dprint and preserves existing
-owner checks. Shared source-lint configuration and repository coverage
-verification are the next rollout; the ESLint limits below describe that target.
+The [formatting checkpoint](../docs/history/formatting-baseline-2026-09-05.md)
+records the initial owner rollout. The [shared tooling guide](../docs/quality-tooling.md)
+explains configuration consumption and how to distinguish a configured limit
+from a passing full-source check.
 
 - **dprint owns formatting:** indentation, quotes, whitespace and wrapping for
   the languages enabled by the owner's configuration. Use `dprint fmt` to format
@@ -20,15 +21,11 @@ verification are the next rollout; the ESLint limits below describe that target.
 
 ## The 1000-line rule
 
-Use this standard ESLint rule in the owning repository's config:
-
-```js
-"max-lines": ["error", {
-  "max": 1000,
-  "skipBlankLines": false,
-  "skipComments": false
-}]
-```
+Consume the shared [ESLint policy](../../tooling/quality/eslint-policy.mjs)
+through the owning repository's flat config. It uses the standard `max-lines`
+rule with a maximum of 1000 and counts blank lines and comments. The shared
+policy also disables inline configuration; a source comment cannot raise or
+disable the limit. Owners retain their parser and existing framework rules.
 
 Exactly 1000 lines is allowed. Blank lines and comments count. Format the code
 before checking its size; do not compress lines or delete useful explanations
@@ -54,10 +51,12 @@ Do not exclude whole test trees to hide maintained code. Preserve frozen
 protocol material and generated lockfiles; their producers own their layout.
 
 Repositories with npm tooling expose `format`, `format:check` and `lint` scripts.
-CI calls the standard tools directly. Mono and the organization profile use
-dprint for their documentation; they do not need an empty JavaScript lint job.
-There is no custom file-size checker, Git baseline engine, or Mono-hosted lint
-runtime for owners to depend on.
+CI calls the standard tools directly. Mono also lints its own JavaScript tooling;
+the organization profile has formatting only while it has no JS/TS code.
+The shared package contains pure configuration, with no custom file-size rule
+or owner runtime. The separate consumption audit asks the installed native tools
+for their effective configuration and file coverage; it does not measure source
+length or replace owner lint/format checks.
 
 Run formatting on the files you are changing, then lint and the owner-required
 behavior checks. Keep a bulk formatting or architectural migration separately
