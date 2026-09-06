@@ -15,12 +15,14 @@ Every owner delegation must include:
 - the required report fields;
 - an instruction to continue remaining authorized work after reporting unless
   a decision or real blocker requires a pause, or the delegated scope is complete.
+- an explicit model/reasoning choice and the manager source task for replies.
 
-The owner acknowledges the protocol at task start. Reused tasks receive the
-same protocol before new work is assigned.
+The owner sends one `ACK` at task start. Reused tasks do not repeat it unless a
+compact handoff starts a semantically new stage.
 
 ## Events that require immediate reporting
 
+- `ACK`: one acknowledgement of the compact packet and its stop condition;
 - `DECISION_REQUIRED`: product, scope, authority, or destructive-action choice;
 - `BLOCKED`: a concrete dependency or external condition prevents progress;
 - `NEED_API` or `API_READY`: a cross-owner contract request or immutable handoff;
@@ -31,6 +33,11 @@ same protocol before new work is assigned.
 
 Ordinary progress, unchanged state, waiting, timeout, and `cleanup_pending` stay
 silent.
+
+Reuse successful evidence for the same repository SHA, inputs, environment, and
+check version by reference. Do not paste its old output or rerun it merely to
+produce another status event. A changed SHA or invalidated dependency reruns
+only the affected evidence required by the applicable gate.
 
 After `FINAL_REPORT`, end the owner turn when its delegated scope is complete
 and no authorized work remains. Report any handoff obligations before ending;
@@ -53,6 +60,18 @@ blocker/decision: <owner, condition, and options when applicable>
 next: <next authorized action>
 push/PR/merge: <separate states>
 ```
+
+At material checkpoints and final handoff, append compact efficiency evidence:
+
+```text
+timing: <task-start, first-material-artifact, final when known>
+continuations: <count>
+model/effort: <explicit selection>
+duplicate-check-avoided: <count and referenced evidence, or 0>
+```
+
+Keep these fields in events or handoffs only. Do not create a telemetry service,
+token database, recurring status job, or another heartbeat to collect them.
 
 Do not describe a local candidate as formally merged, a passing test as live
 verification, or a formal merge as user acceptance.
@@ -81,3 +100,10 @@ A low-frequency heartbeat may check for owners that completed or blocked without
 reporting. It is a recovery mechanism only: it must not replace active owner
 reports, emit unchanged status, repeat old results, or become the normal source
 of task state.
+
+Two consecutive manager continuations or recovery turns with no reviewable
+diff, reproduction, PR, or single evidence-backed blocker require re-scoping,
+narrower validation, a compact new stage, or ending the ineffective task. They
+do not authorize killing a healthy build. Before treating CI as stuck, inspect
+job timestamps, its established duration range, and live or final logs; an API
+timeout, EOF, or transient `in_progress` state alone is not evidence of a hang.
