@@ -57,6 +57,20 @@ push/PR/merge: <separate states>
 Do not describe a local candidate as formally merged, a passing test as live
 verification, or a formal merge as user acceptance.
 
+For a PR, handoff, preview, or feedback event that touches a user-visible
+surface, also include:
+
+```text
+product-impact: <none | presentation-only | product-impacting, plus surface>
+preview-status: <not-required | active | ready | accepted | required>
+```
+
+Page renderer, Host/plugin ownership, information architecture, Host chrome,
+Composer, persistent-panel, and navigation/back changes are
+`product-impacting`, even when implemented as a refactor. Link the manager's
+product baseline checkpoint when one exists. Do not infer `accepted` from CI,
+merge, preview availability, or silence.
+
 ## Manager behavior
 
 On receipt, the manager updates the visible ledger, resolves owner-to-owner

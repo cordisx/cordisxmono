@@ -81,6 +81,74 @@ The ledger must contain:
 - review surface, when applicable;
 - acceptance criteria and unresolved decisions.
 
+## Product baseline checkpoint
+
+Before implementation replaces a user-visible structure that the user required
+or accepted, freeze a compact baseline checkpoint in the manager ledger. Apply
+this checkpoint when a change affects any page renderer, Host/plugin UI
+ownership, information architecture, Host chrome, Composer, persistent panel,
+or navigation/back behavior. Label it `product-impacting`; a technical rewrite,
+lazy-loading change, or ownership migration does not make that impact a pure
+refactor.
+
+The checkpoint references, without copying screenshots or creating another
+requirements database:
+
+```text
+PRODUCT_BASELINE <requirement or feedback ID>
+source: <user requirement or accepted feedback>
+before: <accepted commit and preview, screenshot, or review URL>
+preserve: <visible structure and interactions that remain invariant>
+change: <explicit proposed differences>
+owner: <one repository and task>
+preview: <same, isolated, or integrated review surface>
+status: <last-good | preview-ready | accepted>
+```
+
+Implementation below the visible surface may proceed in parallel. The accepted
+structure remains the last-good product until the proposed replacement is shown
+on the declared preview surface and the user explicitly accepts it. Passing
+tests, CI, merge, or technical integration cannot promote `preview-ready` to
+`accepted`. Without acceptance, do not switch the formal experience or describe
+the replacement as a completed refactor.
+
+PR descriptions and owner handoffs for user-visible work add only two short
+fields: `product-impact` (`none`, `presentation-only`, or `product-impacting`,
+with the affected surface) and `preview-status` (`not-required`, `active`,
+`ready`, `accepted`, or `required`). Link the checkpoint for details rather than
+duplicating it.
+
+### Classification examples
+
+Pure-style fast path:
+
+```text
+product-impact: presentation-only — spacing in the existing Room timeline
+preview-status: active — same accepted preview; automated checks deferred until exit
+```
+
+This remains in the existing user-led pure-style window: update the same
+preview first, add no tests, and run no automated acceptance during feedback.
+When the user ends the window, run the applicable consolidated checks once.
+
+Renderer ownership change:
+
+```text
+product-impact: product-impacting — Host Conversation Shell replaced by a plugin-owned Room renderer, including chrome, Composer, panel, and navigation ownership
+preview-status: required — keep the accepted Host Shell as last-good until the replacement preview is explicitly accepted
+```
+
+Chatroom PR [#24](https://github.com/cordisx/plugin-chatroom/pull/24) moved the
+complete Room page, title, timeline, member panel, Composer, approval controls,
+and avatar rendering into the plugin while removing the Agent Conversation
+Shell dependency. PR [#50](https://github.com/cordisx/plugin-chatroom/pull/50)
+then changed how that plugin-owned page and avatar renderer were loaded. Their
+tests and integration evidence were valuable, but under this checkpoint both
+are product-impacting renderer/ownership changes, not pure refactors; the
+accepted Shell would remain last-good until an explicit replacement preview was
+accepted. This is a historical classification example, not a request to modify
+or rerun the current product.
+
 ## Workstream ownership
 
 Prefer these organization-level lanes when they match the work:
