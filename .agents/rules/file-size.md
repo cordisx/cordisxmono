@@ -42,6 +42,11 @@ the JavaScript/TypeScript ESLint configuration does not automatically lint
 their file lengths. dprint checks their formatting only where a plugin is
 configured. Report these scopes explicitly.
 
+Maintained CSS, SCSS, Sass and Less follow the same 800-line review trigger and
+1000-line merge limit through the native stylesheet tools described in
+[CSS ownership and maintenance](css.md). Generated and third-party styles use
+producer and integrity checks instead of maintained-source line limits.
+
 ## Scope and checks
 
 Keep formatter and linter configurations with their owning repository. Exclude
