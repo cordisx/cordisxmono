@@ -40,6 +40,9 @@ authority the user has not granted.
 Dispatch one stable deliverable with a compact packet. Give history as a short
 summary plus file, task, PR, or SHA references; do not paste whole conversations,
 old logs, repeated tool output, or a manager's full context into an owner task.
+Use the [AI-native adaptive development](ai-native-adaptive-development.md)
+experience to leave safe implementation sequencing to the owner rather than
+turning the packet into a step-by-step script.
 
 ```text
 TASK_PACKET
