@@ -95,7 +95,10 @@ It does not implement a line counter or inspect product source length.
 
 The report lists ignored paths; review their legitimacy. An entire source or
 test tree disappearing, a disabled limit or a missing provider reference fails.
-Partial exclusions still require owner review. Configuration execution is code
+Partial exclusions still require owner review. Every tracked JS/TS file included by dprint must also have ESLint
+coverage, so adding an unsupported language fails instead of silently escaping
+the source rule. Update the owner's parser and inventory profile when needed.
+Configuration execution is code
 execution: run this separate stage on isolated CI workers with read-only
 permissions, no persisted Git credentials and no product secrets.
 

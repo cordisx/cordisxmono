@@ -126,6 +126,18 @@ test('a documentation provider can use format-only with no fake source lint job'
   assert.ok(result.dprint.covered.includes('README.md'))
 })
 
+test('new TypeScript in a JavaScript owner cannot silently escape source lint', async t => {
+  const f = fixture(t)
+  f.write('src/new-language.ts', 'export const value: number = 1\n')
+  f.write('eslint.config.mjs', f.config().replace('js,mjs,cjs,jsx,ts,mts,cts,tsx', 'js,mjs,cjs,jsx'))
+  f.track()
+  const result = await auditQuality(f.options)
+  assert.equal(result.ok, false)
+  assert.ok(result.dprint.covered.includes('src/new-language.ts'))
+  assert.ok(result.eslint.ignored.some(file => file.path === 'src/new-language.ts'))
+  assert.match(result.errors.join('\n'), /new-language\.ts: formatted source has no ESLint configuration/u)
+})
+
 test('missing shared package and remote formatter references fail before consumer tool execution', async t => {
   const f = fixture(t)
   const result = await auditQuality({ ...f.options, provider: false })
