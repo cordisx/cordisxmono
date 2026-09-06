@@ -16,9 +16,11 @@ from product compatibility, and do not refresh existing pointers incidentally.
    verify that the candidate SHA is on its canonical `origin/main`; an already
    verified older mainline commit may remain pinned. A pushed feature head is
    only an explicitly labeled experimental input, never a formal Mono baseline.
-4. Assemble the exact merged revisions and run the checks appropriate to the
-   change. Record each owner SHA and the scope and result of validation. Complete
-   any user acceptance required by the assignment.
+4. Before cross-repository integration or a same-port switch, create and check
+   the read-only [integration assembly manifest](../docs/integration-assembly.md).
+   Then assemble the exact merged revisions and run the checks appropriate to
+   the change. Record each owner SHA and the scope and result of validation.
+   Complete any user acceptance required by the assignment.
 5. One designated integrator updates gitlinks in a separate final Mono commit,
    inspects the submodule diff, and reads back remote main after an authorized
    merge. Do not race other tasks to update the pointers.

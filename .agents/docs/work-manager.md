@@ -463,6 +463,13 @@ integration worktree from the latest formal CordisXMono main and assembles exact
 merged Protocol, Host, plugin, documentation, and site revisions without first
 committing a mono pointer.
 
+Before integration or any same-port switch, validate an explicit
+[integration assembly manifest](integration-assembly.md). Stop at its first
+blocker. A passing HTTP request without matching repository, entry,
+configuration, permission, and process provenance is not a valid assembly. A
+failed candidate reports only code rollback inputs and never rewrites durable
+facts.
+
 Run the compatible-set gates appropriate to the change, including protocol
 conformance, owner checks, plugin checks, focused interaction smoke, and a real
 isolated app renderer when the product claim depends on native integration.

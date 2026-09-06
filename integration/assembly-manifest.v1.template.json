@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "repositories": [
+    {
+      "id": "protocol",
+      "checkout": "../vendors/cordisx/cordisx-protocol",
+      "sha": "<exact protocol commit>",
+      "tree": "<exact protocol tree>",
+      "dirty": { "state": "clean" }
+    },
+    {
+      "id": "host",
+      "checkout": "../vendors/cordisx/cordisx",
+      "sha": "<exact host commit>",
+      "tree": "<exact host tree>",
+      "dirty": { "state": "clean" }
+    },
+    {
+      "id": "consumer",
+      "checkout": "<absolute or manifest-relative consumer checkout>",
+      "sha": "<exact consumer commit>",
+      "tree": "<exact consumer tree>",
+      "dirty": {
+        "state": "declared",
+        "reason": "<why this candidate is intentionally dirty>",
+        "paths": ["<exact dirty path>"]
+      }
+    }
+  ],
+  "entries": [
+    {
+      "id": "host-cli",
+      "kind": "host",
+      "repository": "host",
+      "path": "packages/cli/dist/src/cli.js",
+      "sha256": "<host entry sha256>"
+    },
+    {
+      "id": "consumer-runtime",
+      "kind": "consumer",
+      "repository": "consumer",
+      "path": "dist/runtime/consumer.js",
+      "sha256": "<consumer entry sha256>"
+    }
+  ],
+  "configuration": {
+    "requested": {
+      "path": "<requested config path>",
+      "sha256": "<requested config sha256>"
+    },
+    "stableHome": {
+      "path": "<stable-home config path>",
+      "sha256": "<stable-home config sha256>"
+    },
+    "effectiveSource": "stable-home",
+    "bindings": [
+      {
+        "id": "consumer-entry",
+        "source": "effective",
+        "pointer": "/plugins/0/entry",
+        "kind": "entry",
+        "entry": "consumer-runtime"
+      },
+      {
+        "id": "permission-identity",
+        "source": "effective",
+        "pointer": "/permission/identity",
+        "kind": "literal",
+        "value": "<expected permission or local-development identity>"
+      }
+    ]
+  },
+  "selection": {
+    "lastGood": {
+      "id": "<last-good identifier>",
+      "repositories": {
+        "protocol": "<last-good protocol commit>",
+        "host": "<last-good host commit>",
+        "consumer": "<last-good consumer commit>"
+      }
+    },
+    "candidate": {
+      "id": "<candidate identifier>",
+      "repositories": {
+        "protocol": "<candidate protocol commit>",
+        "host": "<candidate host commit>",
+        "consumer": "<candidate consumer commit>"
+      }
+    },
+    "rollback": {
+      "mode": "report-code-inputs-only",
+      "persistentFacts": "preserve"
+    }
+  },
+  "runtime": {
+    "state": "not-running",
+    "expectedPort": 45135,
+    "process": null,
+    "http": null,
+    "identity": {
+      "hostRepository": "host",
+      "consumerRepositories": ["consumer"],
+      "permissionBinding": "permission-identity"
+    }
+  },
+  "gates": [
+    {
+      "name": "<gate name>",
+      "repository": "host",
+      "sha": "<checked host commit>",
+      "result": "pass",
+      "evidence": "<run URL or durable evidence reference>"
+    }
+  ]
+}
