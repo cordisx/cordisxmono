@@ -29,3 +29,9 @@
 [submodule "vendors/cordisx/marketplace"]
 	path = vendors/cordisx/marketplace
 	url = https://github.com/cordisx/marketplace.git
+[submodule "vendors/cordisx/plugin-channel"]
+	path = vendors/cordisx/plugin-channel
+	url = https://github.com/cordisx/plugin-channel.git
+[submodule "vendors/cordisx/plugin-cli-proxy-api"]
+	path = vendors/cordisx/plugin-cli-proxy-api
+	url = https://github.com/cordisx/plugin-cli-proxy-api.git
