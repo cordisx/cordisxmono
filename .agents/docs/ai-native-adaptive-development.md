@@ -76,6 +76,20 @@ a reviewable diff, reproduction, preview, PR, verified evidence reference, or
 one precise blocker. If it produces none, change the approach rather than
 repeating the same instruction or full validation.
 
+## Capture reusable experience early
+
+When a task finds a reusable failure mode, disproves an implementation direction,
+or meets the same blocker again, record the lesson promptly in the owning
+technical documentation before continuing broad experimentation. Do not wait
+for the whole task to finish when the note can prevent the next repetition. A
+chat, task event, or handoff report is useful coordination evidence, but is not
+durable documentation.
+
+Keep verified facts, rejected paths, current hypotheses, and last-known-good
+evidence visibly distinct. Cite the applicable file, SHA, run, or reproduction.
+A hypothesis stays labeled as such and is updated or removed after final proof;
+it must not silently become an implementation rule.
+
 These choices optimize time to feedback and delivery; they do not collapse
 `implemented`, `verified`, `formally-merged`, `live-proven`, and `accepted` into
 one state.
