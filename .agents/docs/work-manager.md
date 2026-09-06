@@ -106,6 +106,14 @@ but final timestamps showed `12:05:28Z–12:21:05Z`, with the complete owner gat
 running `12:06:11Z–12:21:02Z` and succeeding inside the established range. A
 rerun was correctly avoided once those timestamps were read.
 
+Before manually rerunning a check, look for a successful GitHub result with the
+same repository, head, base, gate version, classification, and environment.
+Reuse its run/artifact URL when all fields match. A local run, another runner or
+toolchain, a rebased head, a moved base, or changed gate/configuration is
+different evidence and cannot be substituted. Use the dated
+[CI efficiency baseline and sample format](history/ci-efficiency-baseline-2026-09-06.md)
+for periodic review, not as a live state database.
+
 ## Authority model
 
 | Role                  | Authority                                                                                                                                        |

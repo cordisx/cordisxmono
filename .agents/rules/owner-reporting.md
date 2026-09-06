@@ -39,6 +39,11 @@ check version by reference. Do not paste its old output or rerun it merely to
 produce another status event. A changed SHA or invalidated dependency reruns
 only the affected evidence required by the applicable gate.
 
+For GitHub checks, the reusable identity is repository, head, base, gate
+version, classification, and environment. Cite the successful run and its
+`cordisx/ci-job-result/v1` artifact. Evidence from another source or environment
+is not interchangeable even when the commit SHA matches.
+
 After `FINAL_REPORT`, end the owner turn when its delegated scope is complete
 and no authorized work remains. Report any handoff obligations before ending;
 do not invent further work to satisfy the continuation instruction.

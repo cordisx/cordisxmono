@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cordisx/cordisxmono/tooling/ci/job-result.v1.schema.json",
+  "title": "CordisX CI job result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "repo",
+    "head",
+    "base",
+    "gateVersion",
+    "classification",
+    "job",
+    "environment",
+    "startedAt",
+    "completedAt",
+    "durationSeconds",
+    "cache",
+    "result",
+    "evidenceUrl"
+  ],
+  "properties": {
+    "schema": { "const": "cordisx/ci-job-result/v1" },
+    "repo": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$" },
+    "head": { "type": "string", "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$" },
+    "base": { "type": "string", "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$" },
+    "gateVersion": { "type": "string", "minLength": 1 },
+    "classification": { "type": "string", "minLength": 1 },
+    "job": { "type": "string", "minLength": 1 },
+    "environment": { "type": "string", "minLength": 1 },
+    "startedAt": { "type": "string", "format": "date-time" },
+    "completedAt": { "type": "string", "format": "date-time" },
+    "durationSeconds": { "type": "integer", "minimum": 0 },
+    "cache": { "enum": ["hit", "miss"] },
+    "result": { "enum": ["success", "failure", "cancelled"] },
+    "evidenceUrl": { "type": "string", "format": "uri", "pattern": "^https://" }
+  }
+}
