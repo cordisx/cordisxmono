@@ -46,6 +46,9 @@ visibility, or grant organization permissions as a side effect of registration.
       metadata is restricted, record a sanitized blocker with the manager rather
       than publishing it or pretending admission is complete.
 - [ ] Ownership and onboarding entry points link to the authoritative sources.
+      If the repository owns CSS, SCSS, Sass, Less, stylesheet generation or a
+      style-bearing DOM contract, its root `AGENTS.md` links the canonical
+      [CSS ownership and maintenance](css.md) rule before style changes.
       Run the offline consistency check, its regression tests, diff/link review, and
       a fresh anonymous recursive public clone/init at the candidate revision.
       Record exact results, including any failure and private mount skip.
