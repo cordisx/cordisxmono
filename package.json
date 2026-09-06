@@ -29,6 +29,8 @@
     "format:check": "dprint check",
     "lint": "eslint .",
     "check:quality": "node --test tests/quality-*.test.mjs",
+    "check:integration": "node scripts/check-integration-assembly.mjs",
+    "test:integration": "node --test tests/integration-assembly.test.mjs",
     "check:registration": "python3 -B scripts/check-repositories.py --revision HEAD"
   },
   "devDependencies": {
