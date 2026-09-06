@@ -9,6 +9,9 @@
 - Treat repository-specific `AGENTS.md` and `.agents/rules` as authoritative inside each submodule.
 - Follow [formatting and file size](file-size.md): dprint owns formatting,
   ESLint enforces the source-file limit, and 800 lines prompts a design review.
+- Follow [risk-tiered delivery gates](risk-tiered-gates.md) to separate the
+  development fast loop, affected pull-request checks, and full release/Mono
+  integration evidence.
 
 ## Read by task
 
