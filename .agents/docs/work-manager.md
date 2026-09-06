@@ -35,6 +35,77 @@ wait for, and verify in-scope tasks, but must stop for a product decision,
 material scope expansion, destructive action, release, deployment, or other
 authority the user has not granted.
 
+## Compact task lifecycle
+
+Dispatch one stable deliverable with a compact packet. Give history as a short
+summary plus file, task, PR, or SHA references; do not paste whole conversations,
+old logs, repeated tool output, or a manager's full context into an owner task.
+
+```text
+TASK_PACKET
+deliverable: <one stable, reviewable result>
+source: <user message, requirement, or feedback ID>
+owner: <one task, repository, worktree, and file boundary>
+base: <formal repository SHA>
+dependencies: <only required formal SHAs or explicit unavailable seams>
+acceptance: <checks and observable criteria>
+stop: <completed result or exact condition that returns control>
+report-to: <manager source task and material events>
+model/effort: <explicit lowest sufficient choice>
+history: <short summary and references only>
+```
+
+Set model and reasoning effort explicitly for every dispatch so a child does
+not inherit an expensive parent setting accidentally. Choose the lowest level
+that can safely complete the work. The current ordinary example is
+`gpt-5.6-sol / medium`; a simple inventory or mechanical scan may use a lighter
+choice, while permission, persistent-data, lifecycle, or native diagnosis may
+justify `high`. Do not make a temporary model preference a permanent exclusive
+rule, and never inherit or default to `ultra` without an explicit exceptional
+need.
+
+Reuse an existing task when the owner, deliverable, repository/worktree, and
+acceptance type are unchanged and the next turn is an incremental fix or
+verification. End the old stage and send a compact handoff when work changes
+from read-only audit to implementation, documentation to cross-repository code,
+or changes owner, repository boundary, or kind of acceptance. This is a
+semantic boundary, not a rule that every follow-up needs a new task.
+
+Create a subtask only for an independent, bounded deliverable that can run in
+parallel. Do not split one long activity into duplicate reviewers, send the same
+instruction to multiple owners, or allow nested delegation to expand scope.
+Honor a user or repository prohibition on subagents without exception.
+
+If two consecutive continuations or recovery turns produce no reviewable diff,
+reproduction, PR, or single evidence-backed blocker, do not send the same prompt
+again. Re-scope the owner boundary, narrow the validation, create a compact new
+stage when its nature changed, or end the ineffective task. This is a manager
+correction trigger, not a timeout for a healthy build or other operation with
+normal elapsed time and live evidence.
+
+### Lifecycle examples
+
+- A focused fix for the same bug, in the same owner worktree, against the same
+  acceptance criteria reuses that owner and cites its existing SHA evidence.
+- A rules audit that becomes cross-repository CI implementation ends the audit
+  stage. The implementation receives a new compact packet with explicit owner
+  repositories, bases, file limits, checks, model/effort, and stop condition;
+  it does not inherit the audit transcript.
+
+### Waiting and stuck detection
+
+Heartbeat is a low-frequency missed-report check, never the work loop. Owners
+report material events; the manager otherwise waits quietly and does not turn
+timeouts or unchanged polls into status messages.
+
+Before calling CI stuck, inspect the job's actual start/completion timestamps,
+the normal duration range, and available live or final logs. A transient API
+`in_progress`, EOF, or quiet polling interval is not enough to cancel or rerun.
+Host PR #324 is the counterexample: its full job was briefly treated as hung,
+but final timestamps showed `12:05:28Z–12:21:05Z`, with the complete owner gate
+running `12:06:11Z–12:21:02Z` and succeeding inside the established range. A
+rerun was correctly avoided once those timestamps were read.
+
 ## Authority model
 
 | Role                  | Authority                                                                                                                                        |
