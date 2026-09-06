@@ -1,5 +1,6 @@
 """Behavior tests using real, disposable Git indexes and committed trees."""
 
+import json
 import os
 from pathlib import Path
 import subprocess
@@ -18,11 +19,11 @@ OWNERSHIP = """# Organization
 
 This is the sole inventory.
 
-| Repository | Visibility | Accountable owner | Authority |
-| --- | --- | --- | --- |
-| `cordisx/cordisxmono` | public | Mono maintainers | Organization governance |
-| `cordisx/core` | public | Core maintainers | Host implementation |
-| `cordisx/plan` | private | Planning maintainers | Provisional strategy |
+| Repository | Visibility | Accountable owner | Authority | Quality profile |
+| --- | --- | --- | --- | --- |
+| `cordisx/cordisxmono` | public | Mono maintainers | Organization governance | javascript |
+| `cordisx/core` | public | Core maintainers | Host implementation | typescript |
+| `cordisx/plan` | private | Planning maintainers | Provisional strategy | private |
 
 ## Other references
 
@@ -87,7 +88,11 @@ class RegistrationTests(unittest.TestCase):
                                 env=self.env, capture_output=True, text=True)
         if error is None:
             self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertIn("PASS: 2 mounted repositories", result.stdout)
+            if "--json" in args:
+                self.assertIsInstance(json.loads(result.stdout), dict)
+                self.assertEqual(result.stderr, "")
+            else:
+                self.assertIn("PASS: 2 mounted repositories", result.stdout)
         else:
             self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
             self.assertIn(error, result.stderr)
@@ -148,18 +153,18 @@ class RegistrationTests(unittest.TestCase):
         self.check(error=f"unregistered or noncanonical submodule section: {PRIVATE}")
 
     def test_inventory_only_row_fails(self):
-        row = "| `cordisx/new-repo` | public | New repository maintainers | New product |"
+        row = "| `cordisx/new-repo` | public | New repository maintainers | New product | javascript |"
         self.stage(INVENTORY, OWNERSHIP.replace("| `cordisx/plan`", row + "\n| `cordisx/plan`"))
         result = self.check(error="missing .gitmodules declaration: vendors/cordisx/new-repo")
         self.assertIn("missing 160000 gitlink: vendors/cordisx/new-repo", result.stderr)
 
     def test_duplicate_inventory_row(self):
-        row = "| `cordisx/core` | public | Core maintainers | Host implementation |"
+        row = "| `cordisx/core` | public | Core maintainers | Host implementation | typescript |"
         self.stage(INVENTORY, OWNERSHIP.replace(row, row + "\n" + row))
         self.check(error="duplicate repository: cordisx/core")
 
     def test_case_variant_inventory_duplicate(self):
-        row = "| `CORDISX/CORE` | public | Core maintainers | Host implementation |"
+        row = "| `CORDISX/CORE` | public | Core maintainers | Host implementation | typescript |"
         self.stage(INVENTORY, OWNERSHIP.replace("\n## Other references", "\n" + row + "\n## Other references"))
         self.check(error="ownership section must contain exactly one table")
         self.stage(INVENTORY, OWNERSHIP.replace("| `cordisx/plan`", row + "\n| `cordisx/plan`"))
@@ -182,8 +187,8 @@ class RegistrationTests(unittest.TestCase):
             ("| Host implementation |", "| |", "accountable owner and authority are required"),
             ("`cordisx/core`", "`core`", "invalid repository slug"),
             ("`cordisx/core`", "`cordisx/..`", "invalid repository slug"),
-            ("| --- | --- | --- | --- |", "| --- | --- | --- |", "invalid ownership table separator"),
-            ("| Host implementation |", "| Host | implementation |", "exactly four cells"),
+            ("| --- | --- | --- | --- | --- |", "| --- | --- | --- | --- |", "invalid ownership table separator"),
+            ("| Host implementation |", "| Host | implementation |", "exactly five cells"),
         ]
         for before, after, error in cases:
             with self.subTest(error=error, replacement=after):
@@ -199,6 +204,103 @@ class RegistrationTests(unittest.TestCase):
         self.stage(".gitmodules", MODULES + '[submodule "vendors/cordisx/cordisxmono"]\n'
                    'path = vendors/cordisx/cordisxmono\nurl = https://github.com/cordisx/cordisxmono.git\n')
         self.check(error="unregistered or noncanonical submodule section: vendors/cordisx/cordisxmono")
+
+    def test_quality_profile_column_is_required(self):
+        self.stage(INVENTORY, OWNERSHIP.replace(" | Quality profile |", " |"))
+        self.check(error="ownership table columns must be")
+
+    def test_missing_and_unknown_quality_profiles_fail(self):
+        cases = [
+            ("| Host implementation |", "exactly five cells"),
+            ("| Host implementation | |", "invalid quality profile"),
+            ("| Host implementation | lint |", "invalid quality profile"),
+            ("| Host implementation | JavaScript |", "invalid quality profile"),
+        ]
+        for replacement, error in cases:
+            with self.subTest(replacement=replacement):
+                self.stage(INVENTORY, OWNERSHIP.replace(
+                    "| Host implementation | typescript |", replacement))
+                self.check(error=error)
+
+    def test_public_quality_profiles_are_declared_by_the_table(self):
+        for profile in ("javascript", "typescript", "next", "format-only"):
+            with self.subTest(profile=profile):
+                self.stage(INVENTORY, OWNERSHIP.replace(
+                    "| Host implementation | typescript |", f"| Host implementation | {profile} |"))
+                result = json.loads(self.check("--json").stdout)
+                self.assertEqual(result["public"][0]["qualityProfile"], profile)
+
+    def test_quality_profile_must_match_visibility(self):
+        self.stage(INVENTORY, OWNERSHIP.replace(
+            "| Host implementation | typescript |", "| Host implementation | private |"))
+        self.check(error="public repository cannot use private quality profile")
+        for profile in ("javascript", "typescript", "next", "format-only"):
+            with self.subTest(profile=profile):
+                self.stage(INVENTORY, OWNERSHIP.replace(
+                    "| Provisional strategy | private |", f"| Provisional strategy | {profile} |"))
+                self.check(error="private repository requires quality profile 'private'")
+
+    def test_inline_code_quality_profile_is_supported(self):
+        self.stage(INVENTORY, OWNERSHIP.replace(
+            "| Host implementation | typescript |", "| Host implementation | `typescript` |"))
+        result = json.loads(self.check("--json").stdout)
+        self.assertEqual(result["public"][0]["qualityProfile"], "typescript")
+
+    def test_json_committed_inventory_and_private_skip(self):
+        revision = self.git("rev-parse", "HEAD").strip()
+        self.assertFalse((self.repo / "vendors").exists())
+        result = json.loads(self.check("--revision", "HEAD", "--json", outside=True).stdout)
+        self.assertEqual(result, {
+            "source": revision,
+            "self": {"repository": "cordisx/cordisxmono", "path": ".", "revision": revision,
+                     "visibility": "public", "qualityProfile": "javascript"},
+            "public": [{"repository": "cordisx/core", "path": PUBLIC, "revision": self.pin,
+                        "visibility": "public", "qualityProfile": "typescript"}],
+            "skipped": [{"repository": "cordisx/plan", "path": PRIVATE, "revision": self.pin,
+                         "visibility": "private", "qualityProfile": "private"}],
+        })
+        self.assertFalse((self.repo / "vendors").exists())
+
+    def test_json_index_uses_staged_profile_not_worktree_or_head(self):
+        self.stage(INVENTORY, OWNERSHIP.replace(
+            "| Host implementation | typescript |", "| Host implementation | javascript |"))
+        self.write(INVENTORY, "invalid working ownership")
+        self.write(".gitmodules", "invalid working declarations")
+        result = json.loads(self.check("--json").stdout)
+        self.assertEqual(result["source"], "index")
+        self.assertIsNone(result["self"]["revision"])
+        self.assertEqual(result["public"][0]["qualityProfile"], "javascript")
+        self.assertEqual(result["public"][0]["revision"], self.pin)
+        self.assertEqual(len(result["skipped"]), 1)
+
+    def test_json_committed_profile_is_isolated_from_invalid_index(self):
+        self.stage(INVENTORY, OWNERSHIP.replace(
+            "| Host implementation | typescript |", "| Host implementation | unknown |"))
+        result = self.check("--json", error="invalid quality profile")
+        self.assertEqual(result.stdout, "")
+        committed = json.loads(self.check("--json", "--revision", "HEAD").stdout)
+        self.assertEqual(committed["public"][0]["qualityProfile"], "typescript")
+
+    def test_json_covers_new_inventory_rows_without_another_list(self):
+        row = "| `cordisx/new-repo` | public | New maintainers | New product | next |"
+        self.stage(INVENTORY, OWNERSHIP.replace("| `cordisx/plan`", row + "\n| `cordisx/plan`"))
+        self.stage(".gitmodules", MODULES + '\n[submodule "vendors/cordisx/new-repo"]\n'
+                   '    path = vendors/cordisx/new-repo\n'
+                   '    url = https://github.com/cordisx/new-repo.git\n')
+        self.link("vendors/cordisx/new-repo")
+        result = json.loads(self.check("--json").stdout)
+        self.assertEqual([row["repository"] for row in result["public"]],
+                         ["cordisx/core", "cordisx/new-repo"])
+        self.assertEqual(result["public"][1], {
+            "repository": "cordisx/new-repo", "path": "vendors/cordisx/new-repo",
+            "revision": self.pin, "visibility": "public", "qualityProfile": "next",
+        })
+        self.assertEqual(len(result["skipped"]), 1)
+
+    def test_json_invalid_registration_emits_no_partial_manifest(self):
+        self.git("update-index", "--force-remove", PUBLIC)
+        result = self.check("--json", error="missing 160000 gitlink")
+        self.assertEqual(result.stdout, "")
 
     def test_private_must_explicitly_skip_default_update(self):
         for setting in ("", "update = checkout", "update = merge"):

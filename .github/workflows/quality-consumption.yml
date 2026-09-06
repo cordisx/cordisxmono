@@ -1,0 +1,94 @@
+name: Quality consumption
+
+on:
+  workflow_dispatch:
+    inputs:
+      policy-ref:
+        description: Full formal Mono provider commit SHA to audit against
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.inventory.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Validate requested exact ref
+        env:
+          POLICY_REF: ${{ inputs.policy-ref }}
+        run: '[[ "$POLICY_REF" =~ ^[a-f0-9]{40}$ ]]'
+      - id: inventory
+        name: Read committed public inventory and private skips
+        run: |
+          python3 -B scripts/check-repositories.py --revision HEAD --json > inventory.json
+          jq '.skipped' inventory.json
+          echo "matrix=$(jq -c '{include: .public}' inventory.json)" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: quality-inventory
+          path: inventory.json
+
+  owner:
+    needs: inventory
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.inventory.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: governance
+          persist-credentials: false
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.policy-ref }}
+          path: policy
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify formal provider ancestry
+        working-directory: policy
+        env:
+          POLICY_REF: ${{ inputs.policy-ref }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$POLICY_REF"
+          git merge-base --is-ancestor "$POLICY_REF" origin/main
+      - uses: actions/checkout@v7
+        with:
+          repository: ${{ matrix.repository }}
+          ref: ${{ matrix.revision }}
+          path: owner
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Install audit dependencies
+        working-directory: governance
+        run: npm ci --ignore-scripts
+      - name: Install provider tools
+        working-directory: policy
+        run: npm ci --ignore-scripts
+      - name: Install owner tools
+        if: matrix.qualityProfile != 'format-only'
+        working-directory: owner
+        run: npm ci --ignore-scripts
+      - name: Audit installed configuration and report exclusions
+        env:
+          POLICY_REF: ${{ inputs.policy-ref }}
+          QUALITY_PROFILE: ${{ matrix.qualityProfile }}
+        run: >-
+          node governance/scripts/check-quality.mjs --repo owner
+          --profile "$QUALITY_PROFILE" --policy-root policy
+          --policy-ref "$POLICY_REF" --json > quality-report.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: quality-${{ strategy.job-index }}
+          path: quality-report.json
+          if-no-files-found: warn

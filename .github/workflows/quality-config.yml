@@ -1,0 +1,30 @@
+name: Quality configuration
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  configuration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run check:quality
+      - name: Inspect effective provider configuration
+        run: >-
+          node scripts/check-quality.mjs --repo . --profile javascript
+          --policy-root . --policy-ref "$(git rev-parse HEAD)" --provider --json
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm pack --dry-run --ignore-scripts

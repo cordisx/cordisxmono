@@ -7,6 +7,7 @@ reachability, product compatibility, or initialized submodule working trees.
 """
 
 import argparse
+import json
 from pathlib import Path
 import re
 import subprocess
@@ -15,7 +16,8 @@ import sys
 
 INVENTORY = ".agents/docs/organization-context.md"
 SELF = "cordisx/cordisxmono"
-HEADERS = ["Repository", "Visibility", "Accountable owner", "Authority"]
+HEADERS = ["Repository", "Visibility", "Accountable owner", "Authority", "Quality profile"]
+QUALITY_PROFILES = {"javascript", "typescript", "next", "format-only", "private"}
 SLUG = re.compile(r"[A-Za-z0-9][A-Za-z0-9-]*/[A-Za-z0-9_.-]+\Z")
 
 
@@ -100,15 +102,15 @@ def inventory(text):
     if len(table) < 3 or cells(table[0]) != HEADERS:
         raise Invalid("ownership table columns must be: " + " | ".join(HEADERS))
     separators = cells(table[1])
-    if len(separators) != 4 or any(not re.fullmatch(r":?-{3,}:?", c) for c in separators):
+    if len(separators) != len(HEADERS) or any(not re.fullmatch(r":?-{3,}:?", c) for c in separators):
         raise Invalid("invalid ownership table separator")
     repositories = {}
     seen = set()
     for line in table[2:]:
         row = cells(line)
-        if len(row) != 4:
-            raise Invalid("ownership row must contain exactly four cells")
-        name, visibility, owner, authority = row
+        if len(row) != len(HEADERS):
+            raise Invalid("ownership row must contain exactly five cells")
+        name, visibility, owner, authority, quality_profile = row
         if name.startswith("`") and name.endswith("`"):
             name = name[1:-1]
         if not SLUG.fullmatch(name) or name.split("/")[1] in {".", ".."}:
@@ -120,8 +122,18 @@ def inventory(text):
             raise Invalid(f"invalid visibility for {name}: {visibility!r}")
         if not owner.strip("` ") or not authority.strip("` "):
             raise Invalid(f"accountable owner and authority are required: {name}")
-        repositories[name] = visibility
-    if repositories.get(SELF) != "public":
+        if name == SELF and visibility != "public":
+            raise Invalid(f"self repository must be registered as public: {SELF}")
+        if quality_profile.startswith("`") and quality_profile.endswith("`"):
+            quality_profile = quality_profile[1:-1]
+        if quality_profile not in QUALITY_PROFILES:
+            raise Invalid(f"invalid quality profile for {name}: {quality_profile!r}")
+        if visibility == "public" and quality_profile == "private":
+            raise Invalid(f"public repository cannot use private quality profile: {name}")
+        if visibility == "private" and quality_profile != "private":
+            raise Invalid(f"private repository requires quality profile 'private': {name}")
+        repositories[name] = {"visibility": visibility, "qualityProfile": quality_profile}
+    if repositories.get(SELF, {}).get("visibility") != "public":
         raise Invalid(f"self repository must be registered as public: {SELF}")
     return repositories
 
@@ -183,7 +195,7 @@ def validate(entries, repositories, declarations):
             problems.append(f"path must equal canonical section name: {path}")
         if fields.get("url") != f"https://github.com/{name}.git":
             problems.append(f"URL must be canonical HTTPS URL: {path}")
-        if repositories[name] == "private":
+        if repositories[name]["visibility"] == "private":
             if fields.get("update") != "none":
                 problems.append(f"private repository requires update = none: {path}")
         elif fields.get("update", "checkout") != "checkout":
@@ -193,17 +205,39 @@ def validate(entries, repositories, declarations):
     return len(expected)
 
 
+def inventory_json(source, entries, repositories):
+    """Project the validated ownership rows and pins, without reading mounts."""
+    def row(name):
+        path = "." if name == SELF else f"vendors/{name}"
+        # An index snapshot has no commit ID; never label staged content as HEAD.
+        revision = (None if source == "index" else source) if name == SELF else entries[path][1]
+        return {"repository": name, "path": path, "revision": revision, **repositories[name]}
+
+    result = {"source": source, "self": row(SELF), "public": [], "skipped": []}
+    for name, metadata in repositories.items():
+        if name != SELF:
+            collection = "skipped" if metadata["visibility"] == "private" else "public"
+            result[collection].append(row(name))
+    return result
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo", type=Path, default=Path.cwd(), help="Mono checkout (default: cwd)")
     parser.add_argument("--revision", help="check a committed ref instead of the Git index")
+    parser.add_argument("--json", action="store_true",
+                        help="emit the validated inventory as JSON; use --revision for exact self revision")
     args = parser.parse_args()
     try:
         source, entries, ownership, gitmodules = snapshot(args.repo, args.revision)
-        count = validate(entries, inventory(ownership), modules(gitmodules))
+        repositories = inventory(ownership)
+        count = validate(entries, repositories, modules(gitmodules))
     except (Invalid, UnicodeError, OSError) as error:
         print(f"FAIL: {error}", file=sys.stderr)
         return 1
+    if args.json:
+        print(json.dumps(inventory_json(source, entries, repositories), indent=2))
+        return 0
     print(f"PASS: {count} mounted repositories plus {SELF}; snapshot={source}")
     print("Offline registration check only; remote state and product compatibility are not verified.")
     return 0

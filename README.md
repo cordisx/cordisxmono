@@ -11,5 +11,6 @@ revisions; each repository owns its product code and documentation.
 - [Read the documentation ownership and layers](.agents/rules/documentation.md).
 - [Keep files within the size limits](.agents/rules/file-size.md) and
   [split by responsibility](.agents/docs/splitting-files.md).
+- [Consume and verify shared quality configuration](.agents/docs/quality-tooling.md).
 
 Agents start with [AGENTS.md](AGENTS.md).
