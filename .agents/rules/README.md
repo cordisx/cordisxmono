@@ -21,6 +21,7 @@
 | ----------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | Find the owning repository or begin organization work       | [Organization context](../docs/organization-context.md)                                 |
 | Synchronize an existing checkout or start an owner branch   | [Getting started](../docs/getting-started.md)                                           |
+| Choose an adaptive development and evidence path            | [AI-native adaptive development](../docs/ai-native-adaptive-development.md)             |
 | Create, transfer, adopt, or audit organization repositories | [Repository onboarding](repository-onboarding.md)                                       |
 | Add, reorganize, or update documentation                    | [Documentation ownership and layers](documentation.md)                                  |
 | Format, lint, or expand a file                              | [Formatting and file size](file-size.md), [splitting guide](../docs/splitting-files.md) |

@@ -9,9 +9,11 @@ from product compatibility, and do not refresh existing pointers incidentally.
 1. Identify owners, dependencies, and the required compatible-set checks before
    changing dependent code. Develop in the owning repositories.
 2. For externally observable contracts, follow
-   [protocol-sync.md](protocol-sync.md). A consumer uses the provider's exact
-   formal merge through its normal dependency mechanism and bases its branch on
-   its own repository's main.
+   [protocol-sync.md](protocol-sync.md). During development, a consumer may use
+   an explicitly experimental, full provider PR SHA and publish a stacked PR
+   while keeping its branch based on its own repository. Before formal merge or
+   release it replaces that pin with the provider's canonical main merge through
+   the normal dependency mechanism.
 3. Push and formally merge owner changes first. Fetch each relevant remote and
    verify that the candidate SHA is on its canonical `origin/main`; an already
    verified older mainline commit may remain pinned. A pushed feature head is
