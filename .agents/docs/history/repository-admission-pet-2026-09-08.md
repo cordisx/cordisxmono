@@ -1,0 +1,13 @@
+# Pet repository admission — 2026-09-08
+
+The pet task owns code publication and Mono admission. The user authorized a public open-source repository and subsequently authorized merging the owner and admission pull requests. The repository uses MIT licensing. Marketplace listing and packaged release are outside this delivery.
+
+[Pet PR 2](https://github.com/cordisx/plugin-pet/pull/2) merged the implementation at `91f400fe51985c1810680f4cbdc042ec9a04f8df` (tree `8b402e4ddf9ed704e2c5e3a1b5ea9019d211b8fb`). This is the selected new mount at `vendors/cordisx/plugin-pet`; its public HTTPS clone requires no private credentials. The bootstrap-only main pin was superseded before admission merge.
+
+The plugin's validated source assembly uses formally merged [Host PR 349](https://github.com/cordisx/cordisx/pull/349), commit `d3e28dc37a357d94b0c177111fdaae4c189d14f0` (tree `6190482d196bdd5346aae078dbe3b084e473446e`), and [Protocol PR 119](https://github.com/cordisx/cordisx-protocol/pull/119), commit `06277f9d117893a9215c991db8c0881df0f0b0f3` (tree `304e55ffd6a4dc7824d3be172bee98b5b5594ce7`). Existing Mono gitlinks are unchanged: Host remains `01aa3dcac06dae9e3b878cb3ee1079f5b9fb19d9` and Protocol remains `3f0dbcd8b04ae83c920d2d913ac2c313af5f83f1`. Therefore this admission does not claim compatibility with Mono's older provider pins. A subsequent compatible-set upgrade belongs to the Mono integrator when that work is selected; use the owner's documented source baseline for pet development meanwhile.
+
+Validation: plugin check passed all 14 tests against the merged providers; Host full CI, changed quality and configuration gates passed; Protocol CI passed. A temporary read-only assembly manifest checked exact source commits, trees, built entries and configuration without launching a runtime. The existing native preview was not restarted. Registration consistency and 39 regression tests passed. Anonymous recursive retrieval passed all 12 public submodules after retrying an initial TLS failure in an existing repository; private roadmap remained uninitialized. The inventory contains Mono plus 13 mounts (14 canonical identities), with zero omissions. The final pet pin is rechecked anonymously before admission merge.
+
+[Mono PR 98](https://github.com/cordisx/cordisxmono/pull/98) records the final candidate and remote readback. Admission completes with its authorized merge and readback, separately from runtime acceptance or marketplace publication. Public registration does not use `update = none`; the existing private mount retains it.
+
+Shop and progression are deferred to [pet issue 1](https://github.com/cordisx/plugin-pet/issues/1), reusing Avatar's existing skin capability. Product requirements remain in the owner repository.

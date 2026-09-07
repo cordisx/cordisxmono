@@ -35,3 +35,6 @@
 [submodule "vendors/cordisx/plugin-cli-proxy-api"]
 	path = vendors/cordisx/plugin-cli-proxy-api
 	url = https://github.com/cordisx/plugin-cli-proxy-api.git
+[submodule "vendors/cordisx/plugin-pet"]
+	path = vendors/cordisx/plugin-pet
+	url = https://github.com/cordisx/plugin-pet.git
