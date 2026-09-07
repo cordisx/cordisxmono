@@ -45,7 +45,7 @@ their checkouts. An index snapshot reports no commit revision for Mono itself.
 | `cordisx/plugin-channel`         | public     | Channel plugin maintainers        | Channel management pages, adapter service entry, plugin-owned assets, styles, and product behavior                            | typescript      |
 | `cordisx/plugin-cli-proxy-api`   | public     | CLI Proxy plugin maintainers      | CLI Proxy provider pages, provider declaration, plugin-owned styles, and product behavior                                     | typescript      |
 | `cordisx/plugin-agent-trace`     | public     | Agent Trace plugin maintainers    | Read-only Agent Trace plugin                                                                                                  | typescript      |
-| `cordisx/plugin-pet` | public | Pet plugin maintainers | Interactive pet companion plugin | typescript |
+| `cordisx/plugin-pet`             | public     | Pet plugin maintainers            | Interactive pet companion plugin                                                                                              | typescript      |
 | `cordisx/marketplace`            | public     | Marketplace maintainers           | Community plugin catalog and validated discovery feed                                                                         | javascript      |
 | `cordisx/roadmap`                | private    | Organization planning maintainers | Provisional strategy, decisions, research, and release planning                                                               | private         |
 
