@@ -27,14 +27,9 @@ Separate four things before acting:
 
 An Agent may depart from the default path without escalation when the user has
 already authorized the outcome and the departure stays inside the hard
-boundaries. Record only:
-
-```text
-ADAPTIVE_DECISION
-basis: <current evidence and why this is the shortest safe route>
-risk: <what this route does not yet prove>
-backfill: <preview, owner gate, formal merge, or release point that closes it>
-```
+boundaries. When the choice affects a handoff, briefly explain its basis,
+remaining risk, and where deferred evidence will be completed. Routine choices
+do not need a separate decision form.
 
 Escalate when the choice changes the product, ownership, public contract,
 authority, destructive effect, or user acceptance—not merely because the Agent
@@ -57,11 +52,12 @@ development input, never release provenance.
 
 ## Match proof to the next decision
 
-| Next decision                 | Sufficient evidence                                                                                                                    |
-| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| Continue development          | Changed files and real dependency closure compile; focused reproduction/tests give actionable feedback                                 |
-| Ask the user to experience it | The smallest honest vertical slice is visible on a correctly identified preview; unavailable or fixture-backed behavior is labeled     |
-| Merge, publish, or release    | Canonical owner mains, applicable full gates, exact integration assembly, required real-runtime proof, and explicit product acceptance |
+| Next decision                       | Sufficient evidence                                                                                                                            |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Continue development                | Changed files and real dependency closure compile; focused reproduction/tests give actionable feedback                                         |
+| Ask the user to experience it       | The smallest honest vertical slice is visible on a correctly identified preview; unavailable or fixture-backed behavior is labeled             |
+| Merge a pull request                | Independent review when required, the actual required checks and applicable owner gate; formal provider pins for dependent changes             |
+| Publish, release, or integrate Mono | Canonical owner revisions, applicable full/integration gates, required real-runtime proof, and user acceptance when the assignment requires it |
 
 Build the smallest experienceable vertical slice before broad hardening when
 the hard boundaries permit it. For UI and presentation work, prefer the same or
@@ -69,12 +65,36 @@ an isolated preview early; pure-style feedback stays in the existing
 preview-first window. Structure, ownership, interaction, permission, data,
 native, and release changes leave that shortcut and retain their normal gates.
 
-Reuse evidence only when SHA, base, gate version, classification, and environment
-still match. Treat a local failure locally: fix the responsible owner or narrow
+Keep a successful CI result attached to its actual SHA, base, gate and
+environment; never relabel it as a result for a new head. Unrelated main movement
+is not itself a reason to rebase a healthy candidate or manually repeat full
+checks. Refresh when a conflict, relevant dependency, required check or merge
+policy requires it; after a change, invalidate the affected evidence.
+Treat a local failure locally: fix the responsible owner or narrow
 the next check instead of restarting unrelated lanes. Each work round produces
 a reviewable diff, reproduction, preview, PR, verified evidence reference, or
 one precise blocker. If it produces none, change the approach rather than
 repeating the same instruction or full validation.
+
+## Keep the user result on the critical path
+
+Independent work can proceed concurrently; dependent work can use the stacked
+path above. A pending provider merge blocks formal promotion, not all consumer
+development. Do not bundle unrelated finished work merely to produce one PR.
+Keep follow-on product ideas in their own scope so a usable repair can ship.
+
+Before intervening in another task, read its current user instructions and
+actual diff: an old title or stale handoff is not evidence of conflicting work.
+A long task can have substantial output while still missing the user result.
+Report both, and aggregate owner receipts into a usable result or precise
+blocker instead of forwarding every acknowledgement.
+
+An explicitly authorized, independent plugin debug instance may be restarted,
+hot-updated or switched to a fix without repeatedly asking about temporary
+drafts. Preserve its persistent data and non-target instances; an explicit
+freeze still applies. Keep the durable launch entry on the working repair
+combination so the user is not sent back to an obsolete candidate. Owner
+runbooks describe the actual launch and data boundaries.
 
 ## Capture reusable experience early
 

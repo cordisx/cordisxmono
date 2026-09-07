@@ -99,7 +99,10 @@ merge, preview availability, or silence.
 
 On receipt, the manager updates the visible ledger, resolves owner-to-owner
 handoffs, routes decisions to the user, and presents reviewable artifacts. The
-manager does not wait for a task that can continue independently.
+manager does not wait for a task that can continue independently. Owner events
+are coordination inputs, not a request to broadcast every receipt to the user.
+Aggregate them into a usable result, material blocker, or decision. Check the
+current task scope and diff before redirecting work based on an old handoff.
 
 A low-frequency heartbeat may check for owners that completed or blocked without
 reporting. It is a recovery mechanism only: it must not replace active owner
