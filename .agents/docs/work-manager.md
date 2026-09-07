@@ -50,7 +50,7 @@ deliverable: <one stable, reviewable result>
 source: <user message, requirement, or feedback ID>
 owner: <one task, repository, worktree, and file boundary>
 base: <formal repository SHA>
-dependencies: <only required formal SHAs or explicit unavailable seams>
+dependencies: <required formal SHAs, labeled experimental PR/SHAs, or unavailable seams>
 acceptance: <checks and observable criteria>
 stop: <completed result or exact condition that returns control>
 report-to: <manager source task and material events>
@@ -284,8 +284,11 @@ blocked-files: <files the requester will not modify>
 ```
 
 Follow the common [cross-repository rules](../rules/cross-repo-changes.md).
-The owner delivers code through an immutable formal merge, not copied files,
-a shared dirty directory, or a feature-head dependency:
+For formal promotion, the owner delivers an immutable mainline merge through
+the normal dependency mechanism. During development, a labeled experimental
+PR/SHA can unblock a stacked consumer as described in
+[adaptive development](ai-native-adaptive-development.md#exact-experimental-dependencies).
+Do not require that experimental handoff to claim a formal merge:
 
 ```text
 API_READY
