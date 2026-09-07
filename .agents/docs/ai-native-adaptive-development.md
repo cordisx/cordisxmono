@@ -93,8 +93,9 @@ An explicitly authorized, independent plugin debug instance may be restarted,
 hot-updated or switched to a fix without repeatedly asking about temporary
 drafts. Preserve its persistent data and non-target instances; an explicit
 freeze still applies. Keep the durable launch entry on the working repair
-combination so the user is not sent back to an obsolete candidate. Owner
-runbooks describe the actual launch and data boundaries.
+combination so the user is not sent back to an obsolete candidate. Use the owner
+runbooks for [native launch and recovery](https://github.com/cordisx/cordisx/blob/main/.agents/docs/native-debugging-runbook.md)
+and [Room history, identity and CLI diagnosis](https://github.com/cordisx/plugin-chatroom/blob/main/.agents/docs/runtime-debugging.md).
 
 ## Capture reusable experience early
 
