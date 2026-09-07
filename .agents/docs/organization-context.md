@@ -98,4 +98,4 @@ validation scope, merge, publication, and user acceptance separately.
 Responsible manager mode applies only to an explicit ongoing coordination
 assignment; its trigger is in the [workspace rules](../rules/README.md).
 
-See [pet admission checkpoint](history/repository-admission-pet-2026-09-08.md) for pending publication and dependency evidence.
+See the [pet admission checkpoint](history/repository-admission-pet-2026-09-08.md) for its registration history and the [pet compatible set](history/pet-compatible-set-2026-09-08.md) for the subsequent source integration.
