@@ -98,4 +98,4 @@ validation scope, merge, publication, and user acceptance separately.
 Responsible manager mode applies only to an explicit ongoing coordination
 assignment; its trigger is in the [workspace rules](../rules/README.md).
 
-See the [pet admission checkpoint](history/repository-admission-pet-2026-09-08.md) for its registration history and the [pet compatible set](history/pet-compatible-set-2026-09-08.md) for the subsequent source integration.
+See the [pet admission checkpoint](history/repository-admission-pet-2026-09-08.md) for its registration history and the [pet compatible set](history/pet-compatible-set-2026-09-08.md) for the subsequent source integration. The [Channel and CLI Proxy admission](history/repository-admission-2026-09-07.md) records their initial scaffolds; the [standalone plugin compatible set](history/standalone-plugin-compatible-set-2026-09-08.md) records the completed owner migration and source integration.
