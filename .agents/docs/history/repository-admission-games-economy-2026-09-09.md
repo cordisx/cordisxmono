@@ -26,12 +26,15 @@ bring the inventory to 16 repositories including Mono. No unrelated repository
 was adopted or excluded by this change.
 
 The index-based offline registration validator passes with 15 mounts plus Mono.
-Remote bootstrap pushes succeeded. Fresh anonymous retrieval, final product
-revisions, owner PR checks and compatible-set verification remain pending.
+Remote bootstrap pushes succeeded. Anonymous recursive clone and repeated initialization passed at Mono
+`396ff44a42cfd36b45190a7e4503dfddfa27d951`: all 14 public mounts were fetched
+at their exact pins, and the private planning mount remained skipped. The
+validator also passed on that committed snapshot. Final product revisions,
+owner PR checks and compatible-set verification remain pending.
 Private mounts retain `update = none`; no private material or credentials are
 included in this record.
 
 Next action: replace bootstrap pins with formally integrated product revisions,
-complete owner and integration gates, verify anonymous recursive retrieval,
+complete owner and integration gates, repeat retrieval for final product pins,
 and obtain user acceptance of the implementation before final compatible-set
 promotion. A draft admission PR does not establish those outcomes.
