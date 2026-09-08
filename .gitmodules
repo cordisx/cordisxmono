@@ -38,3 +38,9 @@
 [submodule "vendors/cordisx/plugin-pet"]
 	path = vendors/cordisx/plugin-pet
 	url = https://github.com/cordisx/plugin-pet.git
+[submodule "vendors/cordisx/plugin-game-room"]
+	path = vendors/cordisx/plugin-game-room
+	url = https://github.com/cordisx/plugin-game-room.git
+[submodule "vendors/cordisx/plugin-economy"]
+	path = vendors/cordisx/plugin-economy
+	url = https://github.com/cordisx/plugin-economy.git

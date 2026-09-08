@@ -47,6 +47,8 @@ their checkouts. An index snapshot reports no commit revision for Mono itself.
 | `cordisx/plugin-agent-trace`     | public     | Agent Trace plugin maintainers    | Read-only Agent Trace plugin                                                                                                  | typescript      |
 | `cordisx/plugin-pet`             | public     | Pet plugin maintainers            | Interactive pet companion plugin                                                                                              | typescript      |
 | `cordisx/marketplace`            | public     | Marketplace maintainers           | Community plugin catalog and validated discovery feed                                                                         | javascript      |
+| `cordisx/plugin-game-room`       | public     | Game platform maintainers         | Multiplayer game plugin, authoritative server, game SDK and example games                                                     | typescript      |
+| `cordisx/plugin-economy`         | public     | Entertainment economy maintainers | Shared Token economy service, wallet plugin, purchase and settlement SDK                                                      | typescript      |
 | `cordisx/roadmap`                | private    | Organization planning maintainers | Provisional strategy, decisions, research, and release planning                                                               | private         |
 
 New, transferred, or adopted repositories follow
@@ -99,3 +101,5 @@ Responsible manager mode applies only to an explicit ongoing coordination
 assignment; its trigger is in the [workspace rules](../rules/README.md).
 
 See the [pet admission checkpoint](history/repository-admission-pet-2026-09-08.md) for its registration history and the [pet compatible set](history/pet-compatible-set-2026-09-08.md) for the subsequent source integration. The [Channel and CLI Proxy admission](history/repository-admission-2026-09-07.md) records their initial scaffolds; the [standalone plugin compatible set](history/standalone-plugin-compatible-set-2026-09-08.md) records the completed owner migration and source integration.
+
+See the [game and economy admission candidate](history/repository-admission-games-economy-2026-09-09.md) for initial registration and outstanding product verification.
