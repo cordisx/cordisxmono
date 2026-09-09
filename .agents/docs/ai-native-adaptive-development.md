@@ -1,5 +1,9 @@
 # AI-native adaptive development — initial experience
 
+Audience: CordisX repository maintainers and development agents. This internal
+engineering guide covers Host, simulator/Playground, plugin and cross-repository
+work; it is not a third-party plugin authoring guide.
+
 This initial experience helps an Agent work like a responsible developer: keep
 one shared base and non-negotiable boundaries, then choose the shortest safe
 route to useful feedback. It is guidance for judgment, not an exhaustive
@@ -96,6 +100,72 @@ freeze still applies. Keep the durable launch entry on the working repair
 combination so the user is not sent back to an obsolete candidate. Use the owner
 runbooks for [native launch and recovery](https://github.com/cordisx/cordisx/blob/main/.agents/docs/native-debugging-runbook.md)
 and [Room history, identity and CLI diagnosis](https://github.com/cordisx/plugin-chatroom/blob/main/.agents/docs/runtime-debugging.md).
+
+## Keep development feedback attached to the running source
+
+The same feedback problem affects Host, simulator/Playground and plugin work.
+A preview can fall behind even when the edited code builds successfully: the
+running process may resolve an installed SDK or another checkout. Repeatedly
+packaging that code turns a short visual feedback loop into an integration
+cycle. Source-connected development reduces that delay, while package and clean
+installation checks still answer separate delivery questions.
+
+"Host SDK" is a packaging label, not an execution boundary. It can contain
+renderer code and Node-side services with different update needs:
+
+| Changed area                                     | Development implication                                                                                            |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| Refresh-compatible plugin or Host React modules  | Vite can update the component boundary without rebuilding the whole App.                                           |
+| Host renderer runtime outside a refresh boundary | CordisX can recreate its runtime in the existing document; an Electron restart is not inherently necessary.        |
+| Node-side launcher or bridge                     | A page refresh cannot replace code already running in that process; its own supported reload or restart is needed. |
+| Optimized dependencies or shared React           | A stale module graph or singleton can survive an ordinary refresh; cache and runtime identity need diagnosis.      |
+
+These examples explain the choice, not a guarantee for every version. The
+Host-owned [internal documentation](https://github.com/cordisx/cordisx/blob/main/.agents/docs/README.md)
+and [native debugging runbook](https://github.com/cordisx/cordisx/blob/main/.agents/docs/native-debugging-runbook.md)
+are the entry points for supported mechanisms. Source-linked sessions shorten ordinary
+Host/plugin iteration; installed SDK candidates remain useful for checking the
+package a consumer will actually receive.
+
+Presentation feedback and provider capability repairs can often advance
+independently. A plugin layout improvement need not wait for an unrelated
+Host/Protocol repair. Batching compatible, ready provider fixes can reduce
+interruptions, but waiting to batch everything can delay useful feedback.
+Likewise, a dependency-cache failure explains a particular recovery step; it
+does not establish that later UI edits should abandon hot updates.
+
+A simulator is useful for the UI and capabilities it actually hosts. Its fast
+feedback does not by itself demonstrate native injection, permissions or App
+lifecycle behavior. Detailed Host and simulator launch/debug procedures belong
+in the owning repository's internal runbooks, while this guide explains the
+shared coordination choices.
+
+The mandatory execution requirements are in the
+[internal development feedback rule](../rules/development-feedback.md);
+this guide retains the reasoning and tradeoffs rather than a second checklist.
+
+## Internal plugins as extension-point design inputs
+
+Internal and external plugin authors share the public contract, but have
+different collaboration paths when that contract is insufficient. Internal
+plugin work provides concrete evidence for evaluating Host and Protocol
+evolution. External developers can bring that evidence through issue discussion
+and design or implementation PRs. The internal team can assess the provider
+design directly within its assigned scope rather than treating every missing
+capability as the end of plugin work.
+
+A useful extension point separates the common interaction from the requesting
+plugin's product choices. A pet interaction, for example, can motivate a review
+of a reusable visual seat or input capability; it does not by itself justify a
+pet-specific Host API. Other plausible consumers help test the boundary, while
+permissions, lifecycle and compatibility constrain how broadly it should be
+exposed. This is a design heuristic, not a claim that any example capability
+already exists or should necessarily be added.
+
+The goal is a small contract that serves real plugin needs, not a general
+framework built ahead of evidence. The
+[capability-gap rule](../rules/development-feedback.md#evaluate-missing-capabilities)
+defines the internal assessment and external collaboration paths.
 
 ## Capture reusable experience early
 
