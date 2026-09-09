@@ -20,8 +20,10 @@ from product compatibility, and do not refresh existing pointers incidentally.
    only an explicitly labeled experimental input, never a formal Mono baseline.
 4. Before cross-repository integration or a same-port switch, create and check
    the read-only [integration assembly manifest](../docs/integration-assembly.md).
-   Then assemble the exact merged revisions and run the checks appropriate to
-   the change. Record each owner SHA and the scope and result of validation.
+   Then assemble the exact merged revisions and collect the checks appropriate
+   to the change under [risk-tiered gates](risk-tiered-gates.md), reusing matching
+   CI evidence and executing only missing checks. Record each owner SHA and the
+   scope and result of validation.
    Complete any user acceptance required by the assignment.
 5. One designated integrator updates gitlinks in a separate final Mono commit,
    inspects the submodule diff, and reads back remote main after an authorized
