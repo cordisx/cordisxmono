@@ -32,7 +32,7 @@ review, rather than being misreported as branch-protection enforcement.
    reviewed mapping for global or safety-sensitive paths. Public contract
    changes add complete Protocol conformance and compile the actual Host and
    consumer against the formally merged Protocol revision.
-3. **Release and Mono integration gate.** Run the owner's complete `check`,
+3. **Release and Mono integration gate.** Collect passing evidence for the owner's complete `check`,
    package/distribution checks, required real-runtime validation, and compatible-
    set verification. Preserve Protocol → Host → consumer → Mono ordering and
    canonical `origin/main` pins. A focused PR result never substitutes for this
@@ -40,14 +40,15 @@ review, rather than being misreported as branch-protection enforcement.
 
 ## Change classification
 
-| Change                                                                                        | Pull-request gate                                                                         |
-| --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| Documentation only                                                                            | Changed-file formatting and link/claim review                                             |
-| Pure style                                                                                    | Changed formatting/lint, typecheck/build, and related tests once after the preview window |
-| Ordinary module                                                                               | Changed formatting/lint, affected workspace compile, related tests                        |
-| Public contract or export                                                                     | Complete Protocol conformance, distribution, and actual consumer compile/contract smoke   |
-| Permission, persistent data, lifecycle, native/launcher, or shared test/runtime configuration | Complete owner gate plus the required focused or real-runtime smoke                       |
-| Release metadata, packaging, dependencies, lockfile, or Mono compatible set                   | Complete release/integration gate                                                         |
+| Change                                                                                        | Pull-request gate                                                                                                             |
+| --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Documentation only                                                                            | Changed-file formatting and link/claim review                                                                                 |
+| Pure style                                                                                    | Changed formatting/lint, typecheck/build, and related tests once after the preview window                                     |
+| Ordinary module                                                                               | Changed formatting/lint, affected workspace compile, related tests                                                            |
+| Public contract or export                                                                     | Complete Protocol conformance, distribution, and actual consumer compile/contract smoke                                       |
+| Permission, persistent data, lifecycle, native/launcher, or shared test/runtime configuration | Complete checks for the affected trust/runtime boundary plus its required smoke                                               |
+| Dependency or lockfile update                                                                 | Inspect the resolved change; run affected consumer checks, adding installation or distribution checks when those paths change |
+| Release metadata, packaging behavior, or Mono compatible set                                  | Complete release/integration gate                                                                                             |
 
 Pure-style treatment stops immediately when a change crosses into behavior,
 permission, data, protocol, native, or release paths.
@@ -62,13 +63,46 @@ bounded by the longest job rather than their sum; install and runner queue time
 remain environment-dependent. This is scoped evidence, not release or live-App
 proof.
 
+## Select the test layer
+
+Choose the least expensive layer that detects the concrete regression. Module
+logic does not require a browser; browser loading/CSP needs browser evidence;
+native integration needs its actual App boundary. Do not make unrelated browser
+or native setup a prerequisite for service/plugin development. Describe the
+reason in the test or PR, not an additional approval form. Review slow fixtures
+for duplicate setup and overlapping coverage before adding more heavy tests.
+
+CI may partition modules and execution environments on independent runners,
+reusing prepared artifacts for the same source and environment. Preserve the
+complete selected coverage and identify skipped groups; parallel execution is
+not permission to omit required evidence. Owner tooling defines the groups and
+records durations so later balancing is based on measurements.
+
 ## Execution and evidence
 
-- Run independent format/lint, typecheck, build, and focused-test jobs in
-  parallel workers. Keep shared output directories, package/install validation,
-  fixed ports, and real Codex Desktop interaction serial unless isolated.
+- A required check describes evidence, not a requirement to execute both locally
+  and in CI. Prefer existing CI for full installation, builds, and regression
+  suites. Owner instructions to run `check` before delivery can be satisfied by
+  matching CI evidence unless they explicitly require a local environment.
+- Before starting a local check, identify the missing evidence or specific
+  failure it will resolve. Do not duplicate a running CI job to fill waiting
+  time. Run focused local reproduction for failures; leave full reruns to CI.
+  Clean-cache installs need an installation/cache-specific reason, not routine
+  merge preparation. Stop adding checks once the required evidence is complete.
+- Parallelize independent lightweight checks only within available resources.
+  On a shared developer machine, run at most one heavy installation or full
+  build at a time by default, including its child processes. Separate directories
+  or caches do not provide CPU or memory isolation. Recursive Git `prepare`
+  builds require inspecting the dependency graph before repeating or expanding
+  an install; eventual success alone does not make that workflow affordable.
+  Keep shared outputs, fixed ports, and real Desktop interaction serial.
+- Track owned subprocess trees and clean up temporary validation processes on
+  completion, failure, or cancellation. If execution was interrupted, inspect
+  surviving owned processes before resuming. Preserve unrelated apps and previews.
 - Reuse a successful result only for the exact commit SHA and gate definition.
   A changed or rebased head recomputes its diff and reruns the affected gate.
+  A new SHA does not by itself require a local full suite or checks in unchanged
+  repositories; account for changes to consumed dependencies and test inputs.
 - Record base SHA, head SHA, classification, selected checks, phase duration,
   and exact-SHA cache hit in the job summary. Do not create a second CI system or
   a custom policy engine.
