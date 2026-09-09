@@ -68,3 +68,7 @@ as a performance guarantee.
 ## Candidate records
 
 - [Notification candidate set, 2026-09-10](history/notification-candidate-set-2026-09-10.md): experimental owner revisions and validation scope; no pointer upgrade.
+
+## Formal compatible sets
+
+- [Notifications, 2026-09-10](history/notification-compatible-set-2026-09-10.md): merged providers and four plugins, exact evidence and delivery boundaries.

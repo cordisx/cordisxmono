@@ -6,16 +6,16 @@ admission, merge, release, or Mono pointer update. All changed owners use
 the [Host notification guide](https://github.com/cordisx/cordisx/blob/34d7457ade01dc414662b3cdd9f9d25c3c1b81cd/.agents/docs/notifications.md)
 and the [Protocol contract](https://github.com/cordisx/cordisx-protocol/blob/dfa2c5fa956184df11a97955b8e5c74a76cb8876/.agents/docs/notifications-v1.md).
 
-| Owner | Candidate revision |
-| --- | --- |
-| Protocol | [`dfa2c5fa9561`](https://github.com/cordisx/cordisx-protocol/commit/dfa2c5fa956184df11a97955b8e5c74a76cb8876) |
-| Host | [`34d7457ade01`](https://github.com/cordisx/cordisx/commit/34d7457ade01dc414662b3cdd9f9d25c3c1b81cd) |
-| Channel | [`189bab14eaf6`](https://github.com/cordisx/plugin-channel/commit/189bab14eaf62e5b1f2eee3cd37e2dacfbacc3ff) |
-| Chatroom | [`9578db10cae2`](https://github.com/cordisx/plugin-chatroom/commit/9578db10cae2d4a735838aef1f5c4641443bc064) |
-| CLIProxy | [`c059122f783a`](https://github.com/cordisx/plugin-cli-proxy-api/commit/c059122f783a2bf5ab3469319a3686949ffb2862) |
-| Pet | [`8bfe2ac1be77`](https://github.com/cordisx/plugin-pet/commit/8bfe2ac1be77d85cfabe902ace388de169688ae2) |
-| Game Room | [`2acf509663b9`](https://github.com/cordisx/plugin-game-room/commit/2acf509663b95a8506965eb1961dd5cc7aff764e) |
-| Economy | [`9c916d3d452f`](https://github.com/cordisx/plugin-economy/commit/9c916d3d452f25f2d66f0c791c939a5c75f90749) |
+| Owner     | Candidate revision                                                                                                |
+| --------- | ----------------------------------------------------------------------------------------------------------------- |
+| Protocol  | [`dfa2c5fa9561`](https://github.com/cordisx/cordisx-protocol/commit/dfa2c5fa956184df11a97955b8e5c74a76cb8876)     |
+| Host      | [`34d7457ade01`](https://github.com/cordisx/cordisx/commit/34d7457ade01dc414662b3cdd9f9d25c3c1b81cd)              |
+| Channel   | [`189bab14eaf6`](https://github.com/cordisx/plugin-channel/commit/189bab14eaf62e5b1f2eee3cd37e2dacfbacc3ff)       |
+| Chatroom  | [`9578db10cae2`](https://github.com/cordisx/plugin-chatroom/commit/9578db10cae2d4a735838aef1f5c4641443bc064)      |
+| CLIProxy  | [`c059122f783a`](https://github.com/cordisx/plugin-cli-proxy-api/commit/c059122f783a2bf5ab3469319a3686949ffb2862) |
+| Pet       | [`8bfe2ac1be77`](https://github.com/cordisx/plugin-pet/commit/8bfe2ac1be77d85cfabe902ace388de169688ae2)           |
+| Game Room | [`2acf509663b9`](https://github.com/cordisx/plugin-game-room/commit/2acf509663b95a8506965eb1961dd5cc7aff764e)     |
+| Economy   | [`9c916d3d452f`](https://github.com/cordisx/plugin-economy/commit/9c916d3d452f25f2d66f0c791c939a5c75f90749)       |
 
 The consumer build SDK is Host `efbff656d84b482d51598bc5ba303d24134e0c62`;
 its canonical shared Protocol dependency is
@@ -30,7 +30,9 @@ Detailed Host evidence is retained in the dated
 
 ## Validation scope
 
-- Protocol complete conformance/distribution check passed.
+- Protocol `npm run check` passed. The separate merge-time distribution gate
+  subsequently exposed a missing notification export inventory; it was fixed
+  and verified in Protocol PR 137.
 - All six migrated consumer packages passed their owner checks. Chatroom's
   additional full-source lint and formatter checks passed. Game Room's client
   check retains its existing one optional skipped test; no server/real-agent
