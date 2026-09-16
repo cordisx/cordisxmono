@@ -42,6 +42,10 @@ is not a public CordisXMono gitlink.
 - A temporary read-only integration assembly checked the exact final Protocol
   and Host revisions, source entry hashes, explicit configuration bindings and
   a not-running runtime declaration before this pointer update.
+- The clean Host and CLI Proxy checkouts did not contain their compiled `dist`
+  entries. The local assembly therefore proved source identity only; compiled
+  runtime compatibility relies on the owner release evidence above. No plugin
+  build, native App, browser session or compiled-runtime smoke was added.
 - This Mono change updates only the Protocol and Host gitlinks. It does not
   republish packages, update unrelated submodules, start an App, or claim a new
   user-interface acceptance run.
