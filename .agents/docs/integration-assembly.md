@@ -71,4 +71,5 @@ as a performance guarantee.
 
 ## Formal compatible sets
 
+- [Coordinated beta release, 2026-09-16](history/coordinated-beta-release-compatible-set-2026-09-16.md): published public beta packages, stable internal provider plugins and final verifier-fixed source revisions.
 - [Notifications, 2026-09-10](history/notification-compatible-set-2026-09-10.md): merged providers and four plugins, exact evidence and delivery boundaries.
