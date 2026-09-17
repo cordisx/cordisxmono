@@ -71,6 +71,7 @@ as a performance guarantee.
 
 ## Formal compatible sets
 
+- [Coordinated beta.5 release, 2026-09-17](history/coordinated-beta.5-release-compatible-set-2026-09-17.md): published public beta packages at their canonical Protocol and Host main revisions, with stable internal providers and no deployment.
 - [Marketplace v6, 2026-09-17](history/marketplace-v6-compatible-set-2026-09-17.md): canonical Protocol and Host consumers plus the independently versioned private catalog owner; no publication or deployment.
 - [Coordinated beta release, 2026-09-16](history/coordinated-beta-release-compatible-set-2026-09-16.md): published public beta packages, stable internal provider plugins and final verifier-fixed source revisions.
 - [Notifications, 2026-09-10](history/notification-compatible-set-2026-09-10.md): merged providers and four plugins, exact evidence and delivery boundaries.
