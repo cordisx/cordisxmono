@@ -66,7 +66,7 @@ component image check, catalog listing or successful public clone.
 | `plugin-economy`         | `bf205c4cad74dfa8323d84eeaded36b7451a1784` | `2206a226e132cc4eaabe708508082172520e040a` | [PR](https://github.com/cordisx/plugin-economy/pull/3)          | [CI](https://github.com/cordisx/plugin-economy/actions/runs/35446811849)         |
 | `marketplace`            | `5394d81a7f8177b14c20a38cb2625345a54c328a` | `3c679af97f2734bbe7a26c527a3429357c147266` | [PR](https://github.com/cordisx/marketplace/pull/11)            | [CI](https://github.com/cordisx/marketplace/actions/runs/35447373702)            |
 | `cordisx.github.io`      | `6870159f65d02efcfca1da123488e6ab07d57f22` | `dd9afae9a30b481fee6f478d8341dfb480959f08` | [PR](https://github.com/cordisx/cordisx.github.io/pull/11)      | [CI](https://github.com/cordisx/cordisx.github.io/actions/runs/35446815445)      |
-| `cordisx`                | `216c8825491224cc38d4a0f8131059cb19029504` | `e1e665f44d02de3e797e12f0dd16584edf2dbc99` | [PR 418](https://github.com/cordisx/cordisx/pull/418)           | [PR full CI](https://github.com/cordisx/cordisx/actions/runs/35447630007)        |
+| `cordisx`                | `654e7b54d2cabd1a982705fde33db77627c7a39f` | `6e92c3316f4036ba4c63c238059b92ffbe7fc1dd` | [PR 419](https://github.com/cordisx/cordisx/pull/419)           | [PR full CI](https://github.com/cordisx/cordisx/actions/runs/35448657302)        |
 
 ## Owner evidence and publication scope
 
@@ -115,17 +115,22 @@ That workflow retains Economy `007e310d35674175e2cd411a77f37aa7b21732ed` and
 the owner's beta.3 SDK inputs; it is not evidence of a new combined runtime with
 all of this record's source pins.
 
-Host PR 418 aligns bundled Channel and CLI Proxy declarations with this
-record's exact plugin revisions and prepares beta.9. The corrected PNG test
-passed the complete PR gate, including package and integration tests, at
-`bcfd6aa1c0b6a5e5d2699fa6313e73e8ba491930`, whose Git tree matches the final
-squash merge. The earlier icon-only Host main run failed an obsolete derived-icon
-assertion and is not passing release evidence. Host main and beta.9 publication
-are tracked independently of the passing source assembly checkpoint.
+Host PR 418 aligned bundled Channel and CLI Proxy declarations with this
+record's exact plugin revisions. PR 419 corrected the release script's actual
+Node ESM import and added native-process regression tests, preparing beta.10.
+The complete applicable PR gate passed at
+`dea89b4da1726e8c6c0d33936afd2c92cfd2f279`, whose Git tree matches the selected
+squash merge. Evidence covers typecheck/build, core (1,880 tests), renderer,
+integration, package checks and clean installed-package validation.
+
+The earlier beta.9 tag remains immutable. Its main product checks, including
+browser tests, passed, but its publication workflow failed before upload due to
+the missing named export. Both beta.9 npm versions were absent; no beta.9
+package publication is claimed. The final beta.10 evidence is separate below.
 
 ## Mono validation
 
-The temporary read-only source assembly passed in 1038.78 ms for all 12 selected
+The initial beta.9-source read-only assembly passed in 1038.78 ms for all 12 selected
 repositories. It checked clean exact commits/trees, the Host source entry,
 eight plugin source entry hashes, explicit temporary configuration bindings and
 a not-running declaration. This is a source identity checkpoint, not a launch
@@ -138,3 +143,41 @@ The registration validator's 39 regression tests and the assembly validator's
 The existing docs, organization-profile and private roadmap gitlinks remain
 unchanged. Anonymous retrieval and final Mono CI/readback are recorded at the
 final candidate checkpoint.
+
+A fresh anonymous recursive clone of candidate
+`95af38a4566fbc91115bf2d33aab772fb1d379ad` retrieved all 14 public submodules at
+exact gitlinks. Global/system configuration, credential helpers, extra headers,
+tokens and prompting were disabled; the runner had no `.netrc`. A second
+anonymous `submodule update --init --recursive` also passed and left private
+roadmap uninitialized. Offline registration passed for 15 mounts plus Mono.
+[Mono PR 112](https://github.com/cordisx/cordisxmono/pull/112) passed configuration,
+formatting and registration checks for that candidate. The final Host release
+pin is verified again before admission closes.
+
+The final beta.10-source assembly repeated the same read-only identity checks
+at Host `654e7b54d2cabd1a982705fde33db77627c7a39f` and passed in 801.45 ms.
+All other selected source revisions are unchanged. The designated manager
+reviewed the admission scope, canonical inventory and public URLs, private skip,
+SDK gaps, local/CI evidence distinctions and publication boundaries before
+finalization.
+
+## Published beta.10 package evidence
+
+Registry readback found `cordisx@0.1.0-beta.10` and
+`create-cordisx-plugin@0.1.0-beta.10`, both with `gitHead`
+`654e7b54d2cabd1a982705fde33db77627c7a39f`, matching the immutable
+[beta.10 tag](https://github.com/cordisx/cordisx/releases/tag/v0.1.0-beta.10).
+Both `beta` tags select beta.10; `latest` remains `0.0.0`. The official
+[OIDC release workflow](https://github.com/cordisx/cordisx/actions/runs/35449185699)
+provides publication and clean registry-installation evidence.
+
+The coordinator downloaded the actual npm Host tarball and verified its
+metadata, integrity/provenance metadata, bundled source pins and PNG bytes.
+Channel resolves to `1b6def3a53758e5d2fd93af922d2ed29b2706822` with image SHA-256
+`8a989a7a2c83d66d4b10381e77bf596222f8301980518a86b4fbbcad006c1e0d`;
+CLI Proxy resolves to `12d5daa36dbd5dd565b96d22859afb1d0f3f3e1d` with image SHA-256
+`15295b1c1634e631b5e1d11a4b17838778c3d4cba03cca95b8bf5d13c13ff0d4`.
+Both images exactly match the selected artwork. Host tarball integrity is
+`sha512-X2aaRDRxEiurg2AchQc6dNHtSK+TT7IaLEv9/GDRiTtrskQh+wNn/kfKIAYWqipblimuIi+PJn+87iBYREZeNg==`.
+This confirms the built-in plugin assets in the published package, independently
+of the separately published Marketplace and website.
