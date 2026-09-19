@@ -46,6 +46,8 @@ their checkouts. An index snapshot reports no commit revision for Mono itself.
 | `cordisx/plugin-cli-proxy-api`   | public     | CLI Proxy plugin maintainers      | CLI Proxy provider pages, provider declaration, plugin-owned styles, and product behavior                                     | typescript      |
 | `cordisx/plugin-agent-trace`     | public     | Agent Trace plugin maintainers    | Read-only Agent Trace plugin                                                                                                  | typescript      |
 | `cordisx/plugin-pet`             | public     | Pet plugin maintainers            | Interactive pet companion plugin                                                                                              | typescript      |
+| `cordisx/plugin-game-room`       | public     | Game Room plugin maintainers      | Game Room plugin, game service, and isolated game execution                                                                   | typescript      |
+| `cordisx/plugin-economy`         | public     | Economy plugin maintainers        | Economy plugin, wallet service, and economy client contracts                                                                  | typescript      |
 | `cordisx/marketplace`            | public     | Marketplace maintainers           | Community plugin catalog and validated discovery feed                                                                         | javascript      |
 | `cordisx/roadmap`                | private    | Organization planning maintainers | Provisional strategy, decisions, research, and release planning                                                               | private         |
 
@@ -99,3 +101,5 @@ Responsible manager mode applies only to an explicit ongoing coordination
 assignment; its trigger is in the [workspace rules](../rules/README.md).
 
 See the [pet admission checkpoint](history/repository-admission-pet-2026-09-08.md) for its registration history and the [pet compatible set](history/pet-compatible-set-2026-09-08.md) for the subsequent source integration. The [Channel and CLI Proxy admission](history/repository-admission-2026-09-07.md) records their initial scaffolds; the [standalone plugin compatible set](history/standalone-plugin-compatible-set-2026-09-08.md) records the completed owner migration and source integration.
+
+See the [plugin icon source integration and Game Room/Economy admission](history/plugin-icons-source-integration-2026-09-19.md) for the selected asset revisions, repository reconciliation, dependency gaps and publication evidence.
