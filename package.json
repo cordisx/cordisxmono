@@ -28,7 +28,7 @@
     "format": "dprint fmt",
     "format:check": "dprint check",
     "lint": "eslint .",
-    "check:quality": "node --test tests/quality-*.test.mjs",
+    "check:quality": "node --test tests/quality-*.test.mjs tooling/git-hooks/hooks.test.mjs",
     "check:integration": "node scripts/check-integration-assembly.mjs",
     "test:integration": "node --test tests/integration-assembly.test.mjs",
     "test:ci-evidence": "node --test tests/ci-evidence.test.mjs",
