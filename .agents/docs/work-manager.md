@@ -26,7 +26,10 @@ On activation:
 3. Inspect the relevant tasks, repositories, worktrees, branches, dirty state,
    formal remote mains, services, and outstanding decisions.
 4. Establish an architecture checkpoint, dependency order, and file-level
-   ownership before dispatching implementation.
+   ownership before dispatching implementation. Identify the applicable chain
+   from source assets through generators/builds, consumers/built-in pins,
+   catalog entries, and release targets, with an owner for each link, so missing
+   delivery scope is resolved before implementation starts.
 5. Ask before creating new user-owned Codex tasks unless the user already
    requested their creation. Reuse or message existing tasks when appropriate.
 
@@ -46,6 +49,7 @@ turning the packet into a step-by-step script.
 
 ```text
 TASK_PACKET
+stage: <design | implementation | release, or another explicit semantic stage>
 deliverable: <one stable, reviewable result>
 source: <user message, requirement, or feedback ID>
 owner: <one task, repository, worktree, and file boundary>
@@ -69,10 +73,16 @@ need.
 
 Reuse an existing task when the owner, deliverable, repository/worktree, and
 acceptance type are unchanged and the next turn is an incremental fix or
-verification. End the old stage and send a compact handoff when work changes
-from read-only audit to implementation, documentation to cross-repository code,
-or changes owner, repository boundary, or kind of acceptance. This is a
-semantic boundary, not a rule that every follow-up needs a new task.
+verification. Do not create a duplicate owner for a small fix within that stage.
+Design, implementation, and release use clean stage contexts: end the previous
+stage and pass only the necessary requirement/decision summary, files, exact
+SHAs, acceptance conditions, and outstanding obligations. Do not fork or copy
+the previous conversation into the next stage. The same applies when a read-only
+audit becomes implementation or ownership, repository boundary, or acceptance
+kind changes. Create a new user-owned task only within the user's authorization;
+if a clean context cannot be established with the available tools, report that
+limitation rather than claiming a reset. A semantic stage transition does not
+transfer away the manager's remaining delivery responsibility.
 
 Create a subtask only for an independent, bounded deliverable that can run in
 parallel. Do not split one long activity into duplicate reviewers, send the same
@@ -97,9 +107,13 @@ normal elapsed time and live evidence.
 
 ### Waiting and stuck detection
 
-Heartbeat is a low-frequency missed-report check, never the work loop. Owners
-report material events; the manager otherwise waits quietly and does not turn
-timeouts or unchanged polls into status messages.
+Use the [owner reporting protocol](../rules/owner-reporting.md#manager-behavior)
+for event handling and missed-report recovery. Owners report completion,
+failures, and decisions immediately. The manager waits quietly between events;
+it does not repeatedly wake owners, scan full task histories, or turn unchanged
+polls into status messages. Recovery without a report runs no more often than
+once every five minutes; a material event, real anomaly, or user status request
+can be handled immediately under that protocol.
 
 Before calling CI stuck, inspect the job's actual start/completion timestamps,
 the normal duration range, and available live or final logs. A transient API
@@ -478,8 +492,12 @@ merged Protocol, Host, plugin, documentation, and site revisions without first
 committing a mono pointer.
 
 Before integration or any same-port switch, validate an explicit
-[integration assembly manifest](integration-assembly.md). Stop at its first
-blocker. A passing HTTP request without matching repository, entry,
+[integration assembly manifest](integration-assembly.md). Verify each applicable
+link identified at the architecture checkpoint against owner evidence, following
+[release coordination rules](../rules/release-coordination.md) for an authorized
+release. Mark links outside the delivery scope explicitly; reference owner
+records instead of maintaining a second asset or release inventory.
+Stop at the first blocker. A passing HTTP request without matching repository, entry,
 configuration, permission, and process provenance is not a valid assembly. A
 failed candidate reports only code rollback inputs and never rewrites durable
 facts.
@@ -547,7 +565,9 @@ is only a quiet missed-report recovery path.
 
 Keep routine coordination quiet. Report when the user can make a decision,
 review a preview, see a newly formal merge, unblock a dependency, or inspect a
-material failure. Do not narrate unchanged waits or repeat accepted findings.
+material failure. Lead with the result or blocker, then the next action and only
+the evidence needed to assess it. Keep reports short and easy to scan; link
+larger artifacts. Do not narrate unchanged waits or repeat accepted findings.
 
 At each report, distinguish:
 
@@ -557,7 +577,8 @@ At each report, distinguish:
 - accepted;
 - blocked or proposed.
 
-Remain responsible until both the required user acceptance and the designated
-integration are complete, or until the user explicitly changes or ends the
-assignment. Record a non-applicable acceptance or integration stage explicitly;
-acceptance of an intermediate preview does not end outstanding delivery work.
+Remain responsible until required user acceptance, formal merges, designated
+integration, and any authorized release/publication are complete and read back,
+or until the user explicitly changes or ends the assignment. Record a
+non-applicable stage explicitly; acceptance of an intermediate preview or a
+completed owner task does not end outstanding delivery work.
