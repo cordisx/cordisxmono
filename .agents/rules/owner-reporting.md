@@ -24,15 +24,19 @@ compact handoff starts a semantically new stage.
 
 - `ACK`: one acknowledgement of the compact packet and its stop condition;
 - `DECISION_REQUIRED`: product, scope, authority, or destructive-action choice;
+- `FAILED`: a terminal failure or failed delegated deliverable, with evidence;
 - `BLOCKED`: a concrete dependency or external condition prevents progress;
 - `NEED_API` or `API_READY`: a cross-owner contract request or immutable handoff;
 - `CHECKPOINT_READY`: a clean committed local checkpoint exists;
 - `PREVIEW_READY`, `FEEDBACK_READY`, or `INTEGRATION_FAIL`: a review surface is
   ready, updated feedback is visible, or integration failed materially;
-- `PR_READY`, `MERGED`, or `FINAL_REPORT`: remote delivery state changed.
+- `PR_READY` or `MERGED`: remote delivery state changed;
+- `FINAL_REPORT`: delegated scope is complete, including a local-only deliverable.
 
-Ordinary progress, unchanged state, waiting, timeout, and `cleanup_pending` stay
-silent.
+Send completion, failure, and decision events proactively; do not wait for a
+manager prompt. A recoverable local check failure that the owner is actively
+fixing does not by itself require `FAILED`. Ordinary progress, unchanged state,
+waiting, timeout, and `cleanup_pending` stay silent.
 
 Reuse successful evidence for the same repository SHA, inputs, environment, and
 check version by reference. Do not paste its old output or rerun it merely to
@@ -50,7 +54,7 @@ do not invent further work to satisfy the continuation instruction.
 
 ## Required report payload
 
-Reports must identify:
+Lead with a short result or blocker and the next action. Reports must identify:
 
 ```text
 task: <owner task>
@@ -65,6 +69,12 @@ blocker/decision: <owner, condition, and options when applicable>
 next: <next authorized action>
 push/PR/merge: <separate states>
 ```
+
+Reference files, exact SHAs, relevant log excerpts, and artifact URLs. Do not
+send large image base64 payloads, complete tool-result objects, or full logs into
+the manager context. Keep images in native media/file artifacts and inspect only
+what the current verification needs. A report must still identify its evidence;
+compactness is not permission to omit a failure or outstanding delivery step.
 
 At material checkpoints and final handoff, append compact efficiency evidence:
 
@@ -104,10 +114,30 @@ are coordination inputs, not a request to broadcast every receipt to the user.
 Aggregate them into a usable result, material blocker, or decision. Check the
 current task scope and diff before redirecting work based on an old handoff.
 
-A low-frequency heartbeat may check for owners that completed or blocked without
-reporting. It is a recovery mechanism only: it must not replace active owner
-reports, emit unchanged status, repeat old results, or become the normal source
-of task state.
+Process material events as they arrive. Without a report, recovery inspections
+must be at least five minutes apart; use the existing event wait or authorized
+heartbeat rather than repeatedly waking the manager or owners. Keep the last
+recovery time and outstanding owner in the existing compact ledger. Do not add
+an independent scheduler, telemetry database, or checking script. A timeout or
+unchanged snapshot alone is not a reason to inspect again sooner.
+
+Recovery starts with a compact current-state snapshot for the missing owner.
+If it is inconclusive, read only that task's latest relevant turn and referenced
+PR/check evidence; do not repeatedly scan full conversation histories. Request
+a missing report from the original owner before considering replacement. Do not
+create a duplicate task simply because reporting is delayed.
+
+A real anomaly, material owner event, or user request for current status permits
+an immediate targeted read; identify the reason when reporting the finding.
+These exceptions do not establish a faster recurring polling loop. Unchanged
+recovery results stay silent, but an actual failure or decision is handled
+promptly. Keep a working event or recovery path while delegated work remains;
+if reporting or wakeup tools are unavailable, state that limitation and the
+remaining handoff rather than claiming unattended coverage.
+
+These are rules for manager and owner execution, not a tool-enforced timer or a
+guarantee of event delivery. Quiet waiting never discharges the manager's final
+merge, acceptance, integration, or authorized publication responsibility.
 
 Two consecutive manager continuations or recovery turns with no reviewable
 diff, reproduction, PR, or single evidence-backed blocker require re-scoping,

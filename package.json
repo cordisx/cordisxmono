@@ -28,11 +28,15 @@
     "format": "dprint fmt",
     "format:check": "dprint check",
     "lint": "eslint .",
-    "check:quality": "node --test tests/quality-*.test.mjs",
+    "check:quality": "node --test tests/quality-*.test.mjs tooling/git-hooks/hooks.test.mjs",
     "check:integration": "node scripts/check-integration-assembly.mjs",
     "test:integration": "node --test tests/integration-assembly.test.mjs",
     "test:ci-evidence": "node --test tests/ci-evidence.test.mjs",
-    "check:registration": "python3 -B scripts/check-repositories.py --revision HEAD"
+    "check:registration": "python3 -B scripts/check-repositories.py --revision HEAD",
+    "hooks:status": "node tooling/git-hooks/install.mjs",
+    "hooks:install": "node tooling/git-hooks/install.mjs --install",
+    "hooks:uninstall": "node tooling/git-hooks/install.mjs --uninstall",
+    "test:hooks": "node --test tooling/git-hooks/hooks.test.mjs"
   },
   "devDependencies": {
     "@typescript-eslint/parser": "8.69.0",

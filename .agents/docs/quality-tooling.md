@@ -109,6 +109,13 @@ have standalone phase-one configs fail visibly. It is not a required product
 gate during migration. The ordinary Mono **Quality configuration** job verifies
 the provider itself on every change.
 
+## Local hooks
+
+[Local formatting hooks](git-hooks.md) describes explicit installation, staged
+automatic formatting, committed-tip push checks, conflict handling and removal.
+The hook runtime is separate from the pure configuration package; importing the
+shared quality configuration does not install hooks.
+
 ## Report enforcement scope honestly
 
 Keep three results separate: configuration consumption, `dprint check`, and
