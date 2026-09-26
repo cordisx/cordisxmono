@@ -123,6 +123,11 @@ but final timestamps showed `12:05:28Z–12:21:05Z`, with the complete owner gat
 running `12:06:11Z–12:21:02Z` and succeeding inside the established range. A
 rerun was correctly avoided once those timestamps were read.
 
+When CI fails, follow the [run-wide failure triage rule](../rules/risk-tiered-gates.md#failed-ci-collect-broadly-repair-in-bounded-batches).
+Have the delivery owner inventory all failed and unfinished groups, route known
+independent blockers promptly, and consolidate repairs before repeating the
+full gate. Handling the first red job does not discharge the other failures.
+
 Before manually rerunning a check, look for a successful GitHub result with the
 same repository, head, base, gate version, classification, and environment.
 Reuse its run/artifact URL when all fields match. A local run, another runner or

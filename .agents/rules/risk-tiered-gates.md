@@ -114,6 +114,57 @@ records durations so later balancing is based on measurements.
   add a coverage KPI or use focused evidence as release, live, or user-acceptance
   evidence.
 
+## Failed CI: collect broadly, repair in bounded batches
+
+Use this sequence when any job in a multi-job delivery gate fails. The delivery
+owner owns the run-wide failure inventory; an authorized manager routes
+independent fixes without changing file ownership.
+
+1. **Inventory the whole run at the first failure.** Record repository,
+   head/base, run/job URLs, first failure time, and every job's current state.
+   Fetch available failed-job logs immediately; retain running, cancelled, and
+   skipped groups as unresolved coverage. Start the known reproduction without
+   waiting for every job to finish, and add later failures to the same inventory.
+2. **Group failures by evidence and assign each group.** Keep the failing test
+   or assertion, raw error, suspected root cause, owner, focused reproduction,
+   and status. Distinguish a repeated failure from a newly reached assertion,
+   missing coverage, and an infrastructure failure. Do not infer that all red
+   jobs share the first diagnosed cause. Within existing delegation authority,
+   repair independent groups concurrently with disjoint file boundaries; reuse
+   the current owner for incremental fixes.
+3. **Preserve useful diagnostic work.** Before pushing a replacement head or
+   cancelling a run, check whether concurrency rules will cancel running jobs.
+   Preserve available logs and results, and let still-relevant jobs finish when
+   practical. Do not cancel healthy groups merely because another group is red.
+   Do not wait indefinitely for a hung or invalid run: record the concrete
+   reason to supersede it and carry its unobserved coverage into the next gate.
+4. **Batch known repairs before another full gate.** Run focused reproductions
+   and inspect downstream assertions after an early assertion is repaired.
+   Assemble fixes for the known independent blockers, then push one reviewable
+   candidate for the required full gate. Do not repeatedly push a single fix
+   while other already-reported failures remain unassigned. An earlier push is
+   reasonable when it enables otherwise unavailable platform evidence or
+   unblocks independent work; record that reason and the remaining inventory.
+5. **Close by exact evidence, not a green subset.** Bind final review and checks
+   to their actual revision and environment under the evidence rules above.
+   Cancelled or skipped required groups are not passing evidence. Preserve
+   meaningful assertions, tolerances, and production behavior; a test-oracle or
+   loader repair needs a reproduction proving the corrected contract.
+
+For source extraction or loader/configuration changes, include representative
+consumers in the focused gate: production asset loading, test-runner imports,
+DOM/CSS behavior, and packaging where affected. Text or AST equivalence alone
+cannot prove that each environment actually loads those bytes. Verify relevant
+platform differences before repeating a full run when a cheap focused
+reproduction is available; label simulated platform evidence honestly.
+
+During a retrospective, compare first-failure, diagnosis, assignment, patch-ready,
+consumed-handoff, and replacement-run timestamps. Separate elapsed critical-path
+time from overlapping owner activity and runner time. A late assignment is a
+coordination delay, not a newly discovered failure; overlapping intervals are
+not additive savings estimates. Keep this inventory in existing handoff records,
+not a new telemetry service or mandatory approval step.
+
 ## Small-task handoff
 
 Assign one bounded batch with: owner and exact base SHA; allowed files; risk
