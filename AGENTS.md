@@ -10,6 +10,7 @@ tasks to a responsible manager, read `.agents/docs/work-manager.md` completely
 and activate that mode. Inspection or one-time summarization alone does not
 activate it.
 
+- For Manager forms or editor subpages, follow the owning [Host form rule](https://github.com/cordisx/cordisx/blob/main/.agents/rules/manager-forms.md); plugin consumers use public contracts only.
 - Make product-code and product-documentation changes in the owning submodule.
 - Keep organization context, cross-repository rules, and integration records in
   CordisXMono. Follow `.agents/rules/documentation.md` for documentation changes.
