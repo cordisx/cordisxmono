@@ -121,6 +121,17 @@ recovery time and outstanding owner in the existing compact ledger. Do not add
 an independent scheduler, telemetry database, or checking script. A timeout or
 unchanged snapshot alone is not a reason to inspect again sooner.
 
+A known failed reporting channel or a completion event with a missing handoff
+is a real anomaly, not ordinary quiet waiting. An owner whose outbound report
+is rejected must preserve the immutable artifact and its path in the final
+report, state the rejection, and avoid retrying a prohibited send. Once the
+manager learns of the channel failure or completion, use an authorized targeted
+read to retrieve and verify the handoff promptly; do not impose the normal
+five-minute recovery delay again. Prefer a bounded completion event wait over
+sleep-only loops when an available tool can deliver the event. If the channel
+failure is not observable, retain the normal recovery cadence and state that
+notification limitation rather than promising immediate delivery.
+
 Recovery starts with a compact current-state snapshot for the missing owner.
 If it is inconclusive, read only that task's latest relevant turn and referenced
 PR/check evidence; do not repeatedly scan full conversation histories. Request
