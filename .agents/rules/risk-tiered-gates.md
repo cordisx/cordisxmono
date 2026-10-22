@@ -38,6 +38,13 @@ review, rather than being misreported as branch-protection enforcement.
    canonical `origin/main` pins. A focused PR result never substitutes for this
    gate.
 
+Before deleting a shared UI control or changing its entry behavior, search for
+its selector and action across real integration consumers. Account for tests
+that load a generated or runtime-built bundle, whose dependencies may be absent
+from the test runner's static import graph. Keep the concrete owner-repository
+mapping and executable selection check beside that owner's CI policy; Mono
+records the routing principle rather than a duplicate path list.
+
 ## Change classification
 
 | Change                                                                                        | Pull-request gate                                                                                                             |
@@ -141,8 +148,11 @@ independent fixes without changing file ownership.
 4. **Batch known repairs before another full gate.** Run focused reproductions
    and inspect downstream assertions after an early assertion is repaired.
    Assemble fixes for the known independent blockers, then push one reviewable
-   candidate for the required full gate. Do not repeatedly push a single fix
-   while other already-reported failures remain unassigned. An earlier push is
+   candidate for the required full gate. A local pass for one group does not
+   resolve another failure in the same run without an explanation and evidence.
+   If a candidate patch or reproduction is not yet ready, keep diagnosis in
+   the owning repository before calling one repair complete. Do not repeatedly
+   push a single fix while other already-reported failures remain unassigned. An earlier push is
    reasonable when it enables otherwise unavailable platform evidence or
    unblocks independent work; record that reason and the remaining inventory.
 5. **Close by exact evidence, not a green subset.** Bind final review and checks

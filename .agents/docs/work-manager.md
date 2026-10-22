@@ -51,6 +51,7 @@ turning the packet into a step-by-step script.
 TASK_PACKET
 stage: <design | implementation | release, or another explicit semantic stage>
 deliverable: <one stable, reviewable result>
+delivery-scope: <owner merge | Mono compatible set | release; include each authorized boundary and completion condition>
 source: <user message, requirement, or feedback ID>
 owner: <one task, repository, worktree, and file boundary>
 base: <formal repository SHA>
@@ -61,6 +62,13 @@ report-to: <manager source task and material events>
 model/effort: <explicit lowest sufficient choice>
 history: <short summary and references only>
 ```
+
+Derive `delivery-scope` from the user's request and existing task context. Do
+not expand it from silence or drop an already authorized Mono or release step.
+For a multi-boundary delivery, report the owner merge as soon as it is formal,
+with its SHA and the remaining authorized gate or pointer work. Reserve the
+final completion claim for the packet's full scope; a new scope decision needs
+user authority, but an ordinary owner merge does not require another approval.
 
 Set model and reasoning effort explicitly for every dispatch so a child does
 not inherit an expensive parent setting accidentally. Choose the lowest level

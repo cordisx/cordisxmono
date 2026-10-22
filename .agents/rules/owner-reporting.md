@@ -113,6 +113,10 @@ manager does not wait for a task that can continue independently. Owner events
 are coordination inputs, not a request to broadcast every receipt to the user.
 Aggregate them into a usable result, material blocker, or decision. Check the
 current task scope and diff before redirecting work based on an old handoff.
+Tell the user when a formal owner merge lands, even if an authorized Mono or
+release step remains; name that remaining boundary and its evidence. Report
+gate phase changes, failures, decisions, and available artifacts, not each
+unchanged or individually passing job.
 
 Process material events as they arrive. Without a report, recovery inspections
 must be at least five minutes apart; use the existing event wait or authorized
@@ -131,6 +135,13 @@ five-minute recovery delay again. Prefer a bounded completion event wait over
 sleep-only loops when an available tool can deliver the event. If the channel
 failure is not observable, retain the normal recovery cadence and state that
 notification limitation rather than promising immediate delivery.
+
+Resuming a bounded event wait is passive waiting, not a new recovery inspection;
+count active status reads by their underlying request, not by tool continuations.
+If a summary status conflicts with downstream checks, job timestamps, or logs,
+make one targeted read of the raw run/job times and relevant log before deciding
+whether to wait or retry. A queued projection alone does not establish queue
+duration or justify cancellation.
 
 Recovery starts with a compact current-state snapshot for the missing owner.
 If it is inconclusive, read only that task's latest relevant turn and referenced
