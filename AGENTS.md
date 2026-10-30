@@ -3,6 +3,8 @@
 Read `.agents/rules/README.md` before changing this workspace.
 Read `.agents/docs/organization-context.md` before organization-level or
 cross-repository work.
+Read `.agents/rules/cordisx-user-updates.md` before installing or updating
+CordisX or its plugins for a user.
 Read `.agents/rules/css.md` before changing CSS, SCSS, Sass, Less,
 stylesheet-generating code, or a style-bearing DOM contract.
 When the user explicitly delegates ongoing coordination across multiple Codex
