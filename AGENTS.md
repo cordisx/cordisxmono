@@ -5,6 +5,8 @@ Read `.agents/docs/organization-context.md` before organization-level or
 cross-repository work.
 Read `.agents/rules/cordisx-user-updates.md` before installing or updating
 CordisX or its plugins for a user.
+Read `.agents/rules/cordisx-user-validation.md` before launching CordisX
+test instances or validating model services in the user's environment.
 Read `.agents/rules/css.md` before changing CSS, SCSS, Sass, Less,
 stylesheet-generating code, or a style-bearing DOM contract.
 When the user explicitly delegates ongoing coordination across multiple Codex

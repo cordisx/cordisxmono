@@ -31,6 +31,7 @@
 | Change dependencies or Mono gitlinks                                | [Cross-repository changes](cross-repo-changes.md)                                       |
 | Coordinate an authorized release                                    | [Release coordination](release-coordination.md)                                         |
 | Install or update CordisX or plugins for a user                     | [User update coordination](cordisx-user-updates.md)                                     |
+| Launch CordisX test instances or validate user model services       | [User environment validation](cordisx-user-validation.md)                               |
 
 Read the owner repository's instructions before edits. Use these links to load
 the relevant workflow; ordinary tasks do not require the full manager workflow.
