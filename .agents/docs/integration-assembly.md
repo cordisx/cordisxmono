@@ -71,6 +71,8 @@ as a performance guarantee.
 
 ## Formal compatible sets
 
+- [Provider and native compatibility beta.50, 2026-11-07](history/provider-beta50-compatible-set-2026-11-07.md): published Host/Creator beta.50 and Protocol beta.10, scoped native evidence, verified local installation, and preserved active Host.
+
 - [Coordinated beta.5 release, 2026-09-17](history/coordinated-beta.5-release-compatible-set-2026-09-17.md): published public beta packages at their canonical Protocol and Host main revisions, with stable internal providers and no deployment.
 - [Marketplace v6, 2026-09-17](history/marketplace-v6-compatible-set-2026-09-17.md): canonical Protocol and Host consumers plus the independently versioned private catalog owner; no publication or deployment.
 - [Coordinated beta release, 2026-09-16](history/coordinated-beta-release-compatible-set-2026-09-16.md): published public beta packages, stable internal provider plugins and final verifier-fixed source revisions.
