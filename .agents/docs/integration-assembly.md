@@ -71,6 +71,8 @@ as a performance guarantee.
 
 ## Formal compatible sets
 
+- [Channel history and headless service, 2026-11-17](history/channel-history-headless-compatible-set-2026-11-17.md): released history and sender contracts, standalone service, and matching Channel catalog.
+
 - [Channel first wave, 2026-11-17](history/channel-first-wave-compatible-set-2026-11-17.md): released Channel source, catalog, and provider baseline with a read-only assembly.
 
 - [Provider and native compatibility beta.50, 2026-11-07](history/provider-beta50-compatible-set-2026-11-07.md): published Host/Creator beta.50 and Protocol beta.10, scoped native evidence, verified local installation, and preserved active Host.
