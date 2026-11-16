@@ -33,6 +33,12 @@
 | Install or update CordisX or plugins for a user                     | [User update coordination](cordisx-user-updates.md)                                     |
 | Launch CordisX test instances or validate user model services       | [User environment validation](cordisx-user-validation.md)                               |
 
+For Manager forms, editor subpages or form dialogs, follow the owning
+[Host form rule](https://github.com/cordisx/cordisx/blob/main/.agents/rules/manager-forms.md)
+and [composition guide](https://github.com/cordisx/cordisx/blob/main/.agents/docs/manager-form-composition.md).
+Host owns these product standards; plugin consumers follow public contracts.
+These links do not upgrade Mono's pinned Host revision.
+
 Read the owner repository's instructions before edits. Use these links to load
 the relevant workflow; ordinary tasks do not require the full manager workflow.
 
