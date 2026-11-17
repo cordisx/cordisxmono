@@ -71,6 +71,8 @@ as a performance guarantee.
 
 ## Formal compatible sets
 
+- [Context threshold continuation, 2026-11-18](history/context-threshold-compatible-set-2026-11-18.md): published beta.69/Channel 0.1.5, exact compaction-budget source set, local CLI update and preserved active-window boundary.
+
 - [Channel history and headless service, 2026-11-17](history/channel-history-headless-compatible-set-2026-11-17.md): released history and sender contracts, standalone service, and matching Channel catalog.
 
 - [Channel first wave, 2026-11-17](history/channel-first-wave-compatible-set-2026-11-17.md): released Channel source, catalog, and provider baseline with a read-only assembly.
